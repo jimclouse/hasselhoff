@@ -1,15 +1,14 @@
 express     = require "express"
 path        = require "path"
-logger      = require "morgan"
 bodyParser  = require "body-parser"
-debug       = require("debug")("linkedInServices")
-http        = require 'http'
+http        = require "http"
+mssql       = require "mssql"
 
 app = express() 
 app.set('root', process.cwd())
 
 #get the port situated based on environment
-if process.env['ENVIRONMENT'] == "production"
+if process.env.ENVIRONMENT == "production"
     _port = 8080;
 else # Development env
     _port = 9000;
@@ -32,7 +31,7 @@ server = http.createServer(app)
 
 server.listen _port, ->
     console.log "running on port #{_port}"
-    debug "App settings:", app.locals.settings
+    console.log "App settings:", app.locals.settings
 
 
 module.exports = app
