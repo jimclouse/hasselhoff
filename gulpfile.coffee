@@ -65,7 +65,7 @@ gulp.task 'copyFonts', ->
     .pipe(gulp.dest('./static/font'))
 
 gulp.task 'watch', ->
-  gulp.watch './public/js/**/*.coffee', ['main.coffee']
+  gulp.watch './public/js/**/*.coffee', ['coffee']
   gulp.watch './public/less/*.less', ['less']
 
 gulp.task 'default', [
