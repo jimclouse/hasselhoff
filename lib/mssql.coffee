@@ -1,33 +1,37 @@
-#! stuff
-mssql =     require 'mssql'
+'use strict'
+
+mssql   = require 'mssql'
+_       = require 'lodash'
 
 config =
-    user: 'user'
-    password: 'password'
-    server: 'host'
-    database: 'database'
-    pool:
-        max: 10
-        min: 0
-        idleTimeoutMillis: 30000
+    user: process.env.USER_NAME
+    password: process.env.PASSWORD
+    server: process.env.SERVER
 
-connection = new mssql.Connection(config, (err) ->
-    # add error handling
-    # Query
-    request = new mssql.Request(connection) # or: var request = connection.request();
-    request.query('select name from sys.tables;', (err, recordset) ->
-        # ... error checks
-        console.log recordset
+query = (req, res) ->
+    statement = req.body.stmt
+    db = req.body.db
 
-        # Stored Procedure
-
-        # var request = new mssql.Request(connection);
-        # request.input('input_parameter', mssql.Int, 10);
-        # request.output('output_parameter', mssql.VarChar(50));
-        # request.execute('procedure_name', function(err, recordsets, returnValue) ->
-        #     // ... error checks
-
-        #     console.dir(recordsets);
-        # 
+    cfg = _.clone config
+    cfg.database = db if db
+    connection = new mssql.Connection(cfg, (err) ->
+        res.send 500, err if err
+        rq = new mssql.Request(connection) # or: var request = connection.request();
+        rq.query(statement, (err, recordset) ->
+            res.send 500, err if err
+            res.send recordset
+        )
     )
-)
+
+proc = (req, res) ->
+    console.log "not Implemented"
+    # Stored Procedure
+    # var request = new mssql.Request(connection);
+    # request.input('input_parameter', mssql.Int, 10);
+    # request.output('output_parameter', mssql.VarChar(50));
+    # request.execute('procedure_name', function(err, recordsets, returnValue) ->
+    #     // ... error checks
+
+    #     console.dir(recordsets);
+
+module.exports.query = query

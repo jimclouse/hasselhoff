@@ -2,7 +2,7 @@ express     = require "express"
 path        = require "path"
 bodyParser  = require "body-parser"
 http        = require "http"
-mssql       = require "mssql"
+mssql       = require "../lib/mssql"
 
 app = express() 
 app.set('root', process.cwd())
@@ -18,6 +18,7 @@ app.locals.appEnvVar = process.env['APP_ENV_VAR']
 
 app.use '/static', express.static(path.join(app.get('root'), 'static'))
 app.use(express.static(app.get("root") + '/public'))
+app.use(bodyParser({ limit: '2mb' }))
 
 app.engine('html', require('ejs').renderFile)
 
@@ -25,6 +26,10 @@ app.engine('html', require('ejs').renderFile)
 
 app.get '/', (req, res) -> res.render 'app.html'
 app.get '/index', (req, res) -> res.render 'app.html'
+
+app.post('/query', mssql.query)
+
+
 app.get '*', (req, res) -> res.redirect '/#/404'
 
 server = http.createServer(app)

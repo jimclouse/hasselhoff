@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "coffee ./bin/server.coffee",
+    "start": "source etc/environment; coffee ./bin/server.coffee",
     "postinstall": "gulp"
   },
   "dependencies": {
+    "bluebird": "^2.9.24",
     "body-parser": "~1.0.0",
     "browserify": "6.3.3",
     "caching-coffeeify": "0.4.0",
