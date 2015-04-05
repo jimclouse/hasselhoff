@@ -1,23 +1,32 @@
 'use strict'
 
-mssql   = require 'mssql'
-_       = require 'lodash'
+mssql       = require 'mssql'
+_           = require 'lodash'
+fs          = require 'fs'
+path        = require 'path'
+mustache    = require 'mustache'
 
 config =
     user: process.env.USER_NAME
     password: process.env.PASSWORD
     server: process.env.SERVER
+    # we dont choose a db, but let the templates dictacte db
+
+root = process.cwd()
+
+# local template cache
+TEMPLATES = {}
 
 query = (req, res) ->
-    statement = req.body.stmt
-    db = req.body.db
+    template = req.body.template
+    if !TEMPLATES[template]
+        TEMPLATES[template] = fs.readFileSync(path.join(root, 'lib/sql', "#{template}.sql"), {encoding: 'utf8'})
+    template = mustache.render(TEMPLATES[template], req.body)
 
-    cfg = _.clone config
-    cfg.database = db if db
-    connection = new mssql.Connection(cfg, (err) ->
+    connection = new mssql.Connection(config, (err) ->
         res.send 500, err if err
         rq = new mssql.Request(connection) # or: var request = connection.request();
-        rq.query(statement, (err, recordset) ->
+        rq.query(template, (err, recordset) ->
             res.send 500, err if err
             res.send recordset
         )
