@@ -6,10 +6,14 @@
     "start": "source etc/environment; coffee ./bin/server.coffee",
     "postinstall": "gulp"
   },
+  "browser": {
+    "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js"
+  },
   "dependencies": {
     "bluebird": "^2.9.24",
     "body-parser": "~1.0.0",
     "browserify": "6.3.3",
+    "browserify-shim": "^3.8.3",
     "caching-coffeeify": "0.4.0",
     "coffee-script": "~1.6.3",
     "cookie-parser": "~1.0.1",
@@ -30,5 +34,12 @@
     "mssql": "^1.3.0",
     "mustache": "^2.0.0",
     "static-favicon": "~1.0.0"
+  },
+  "browserify-shim": {
+    "bootstrap": {
+      "depends": [
+        "jquery:$"
+      ]
+    }
   }
 }

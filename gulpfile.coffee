@@ -13,11 +13,6 @@ coffee = require 'gulp-coffee'
 
 isProduction = process.env.NODE_ENV is 'production'
 
-vendorDependencies = ['./bower_components/jquery/dist/jquery.js',
-                      './bower_components/bootstrap/dist/js/bootstrap.js',
-                      './bower_components/angular/angular.js',
-                      './bower_components/angular-route/angular-route.js']
-
 gulp.task 'less', ->
   gulp.src('./public/less/app.less')
     .pipe(less({
@@ -40,8 +35,9 @@ gulp.task 'wysiLess', ->
     .pipe(gulp.dest('./static/css'))
 
 gulp.task 'vendor', ->
-  gulp.src(vendorDependencies)
-    .pipe(concat('vendor.js'))
+  gulp.src("./public/js/vendor.js")
+    .pipe(browserify({ transform: [ coffeeify ] }))
+    .on('error', gutil.log)
     .pipe(gulp.dest('./static/js'))
 
 gulp.task 'coffee', ->
