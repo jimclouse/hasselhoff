@@ -7,5 +7,7 @@ app.controller 'main', ($scope, $http) ->
             .catch (err) ->
                 console.error err
 
-
-    query('get_databases').then (data) -> $scope.databases = data
+    # initialize
+    query('get_databases').then (data) -> 
+        $scope.databases = data
+        $scope.selectedDatabase = _.first _.filter data, (d) -> d.name == 'master'

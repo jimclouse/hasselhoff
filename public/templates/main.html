@@ -1,6 +1,9 @@
-<h2>App Main Page</h2>
-Available Databases:
+<div class="sticky-header">
+    <div class="pull-left">
+        <h2>Data Hasselhoff</h2>
+    </div>
 
-<div ng-repeat="database in databases">
-    {{database.name}}<br/>
+    <div class="pull-right">
+        <select ng-model="selectedDatabase" ng-options="db.name for db in databases"></select>
+    </div>
 </div>
