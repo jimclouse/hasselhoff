@@ -28,6 +28,7 @@
     "less": "2.1.0",
     "lodash": "2.4.1",
     "mssql": "^1.3.0",
+    "mustache": "^2.0.0",
     "static-favicon": "~1.0.0"
   }
 }
