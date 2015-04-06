@@ -7,3 +7,21 @@
         <select ng-model="selectedDatabase" ng-options="db.name for db in databases"></select>
     </div>
 </div>
+
+
+<table>
+    <tr>
+        <td>spid</td>
+        <td>blocked</td>
+        <td>last_batch</td>
+        <td>hostname</td>
+        <td>program_name</td>
+    </tr>
+    <tr ng-repeat="process in processes">
+        <td>{{process.spid}}</td>
+        <td>{{process.blocked}}</td>
+        <td>{{process.last_batch}}</td>
+        <td>{{process.hostname}}</td>
+        <td>{{process.program_name}}</td>
+    </tr>        
+</table>

@@ -11,3 +11,5 @@ app.controller 'main', ($scope, $http) ->
     query('get_databases').then (data) -> 
         $scope.databases = data
         $scope.selectedDatabase = _.first _.filter data, (d) -> d.name == 'master'
+
+    query('get_sysprocesses').then (data) -> $scope.processes = data    
