@@ -1,0 +1,23 @@
+
+
+    <h3>Sys Processes</h3>
+    <table width="100%" class="table table-condensed table-striped">
+        <thead>
+        <tr>
+            <th>spid</th>
+            <th>blocked</th>
+            <th>last_batch</th>
+            <th>hostname</th>
+            <th>program_name</th>
+        </tr>
+        <thead>
+        <tbody>
+        <tr ng-repeat="process in processes">
+            <td>{{process.spid}}</td>
+            <td>{{process.blocked}}</td>
+            <td>{{process.last_batch}}</td>
+            <td>{{process.hostname}}</td>
+            <td>{{process.program_name}}</td>
+        </tr>
+        </tbody>      
+    </table>
