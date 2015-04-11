@@ -4,6 +4,15 @@
         <link rel="stylesheet" type="text/css" href="static/css/app.css">
     </head>
     <body ng-controller="main">
+        <div class="sticky-header">
+            <div class="pull-left title">
+                <i class="fa fa-life-ring"></i> Data Hasselhoff
+            </div>
+
+            <div class="pull-right">
+                <select ng-model="selectedDatabase" ng-options="db.name for db in databases"></select>
+            </div>
+        </div>
         <div ng-view></div>
     </body>
     <script type="text/javascript" src="static/js/vendor.js"></script>
