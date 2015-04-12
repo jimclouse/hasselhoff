@@ -8,8 +8,13 @@ app.controller 'main', ($scope, $http) ->
                 console.error err
 
     # initialize
+    $scope.page = 'main'
     query('get_databases').then (data) -> 
         $scope.databases = data
         $scope.selectedDatabase = _.first _.filter data, (d) -> d.name == 'master'
 
-    query('get_sysprocesses').then (data) -> $scope.processes = data    
+
+    $scope.fetchQuery = (template) ->
+        query(template).then (data) -> 
+            $scope.infos = data            
+            $scope.partial = template.replace('get_', '')

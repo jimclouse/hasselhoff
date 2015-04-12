@@ -1,29 +1,58 @@
-<div class="container intro">
-    <div class="jumbotron">
-        <h1><i class="fa fa-life-ring"></i> Data Hasselhoff</h1>
-        <p>While David watches over the beaches of Malibu, Data Hasselhoff watches over your databases</p>
+<!-- Intro page -->
+<div ng-show="page=='main'">
+    <div class="container intro">
+        <div class="jumbotron">
+            <h1><i class="fa fa-life-ring"></i> Data Hasselhoff</h1>
+            <p>While David watches over the beaches of Malibu, Data Hasselhoff watches over your databases</p>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>System Info</h2>
+                <p>
+                    View info such as current processes, tables, database sizes, etc.
+                </p>
+                <p>
+                    <a class="btn btn-default" href="" role="button" ng-click="page='system'">Get Started »</a>
+                </p>
+            </div>
+            <div class="col-sm-6">
+                <h2>Maintenance</h2>
+                <p>
+                    Here you'll find tools to help you tune your database. This section includes information such as unused indexes, unused stored procedures, fragmented indexes, etc.
+                </p>
+                <p>
+                    <a class="btn btn-default" href="" role="button" ng-click="page='maintenance'">Get Started »</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
-<br/><br/>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>System Info</h2>
-            <p>
-                View info such as current processes, tables, database sizes, etc.
-            </p>
-            <p>
-                <a class="btn btn-default" href="" role="button">Get Started »</a>
-            </p>
-        </div>
-        <div class="col-sm-6">
-            <h2>Maintenance</h2>
-            <p>
-                Here you'll find tools to help you tune your database. This section includes information such as unused indexes, unused stored procedures, fragmented indexes, etc.
-            </p>
-            <p>
-                <a class="btn btn-default" href="" role="button">Get Started »</a>
-            </p>
-        </div>
+
+<!-- System Info page -->
+<div class="container" ng-show="page=='system'">
+    <h1>System Information</h1>
+    <div ng-hide="1==2">
+        <ul>
+            <li><a href="" ng-click="fetchQuery('get_sysprocesses')">System Processes</a></li>
+        </ul>
     </div>
+    <div ng-if="partial">
+        <ng-include src="'templates/' + partial + '.html'"></ng-include>
+    </div>
+
+</div>
+
+<!-- Maintenance Page -->
+<div class="container" ng-show="page=='maintenance'">
+    <h1>Maintenance</h1>
+</div>
+
+<!-- back button -->
+<div class="container" ng-hide="page=='main'">
+    <p>
+        <a class="btn btn-default" href="" role="button" ng-click="page='main'">« Back</a>
+    </p>
 </div>
