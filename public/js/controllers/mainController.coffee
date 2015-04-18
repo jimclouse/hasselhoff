@@ -2,7 +2,6 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
 
     $scope.navigateBack = () ->
         navStack.pop()
-        debugger
         p = navStack.slice(-1)[0]
         $scope.partial = null if p in ['main', 'system', 'maintenance']
         $scope.nav.page = p
@@ -10,6 +9,9 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
     $scope.navigate = (page) ->
         navStack.push(page)
         $scope.nav.page = page
+
+    $scope.formatDateFromNow = (datetime) ->
+        moment(datetime.replace('Z', '')).fromNow()
 
     query = (template) ->
         $http.post('/query', {template: template, database: 'glglive'})
@@ -19,7 +21,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
                 console.error err
 
     fetchQuery = (template) ->
-        query(template).then (data) -> 
+        query(template).then (data) ->            
             $scope.infos = data    
             $scope.partial = template.replace('get_', '')
 

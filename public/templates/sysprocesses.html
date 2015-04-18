@@ -15,10 +15,10 @@
             </tr>
         <thead>
         <tbody >
-            <tr ng-repeat="process in infos" ng-show="process.spid > 30 || this.showSystem">
+            <tr ng-repeat="process in infos" ng-show="process.spid > 30 || this.showSystem" ng-class="process.blocked == 1 ? 'danger' : ''">
                 <td>{{process.spid}}</td>
                 <td>{{process.blocked}}</td>
-                <td>{{process.last_batch}}</td>
+                <td>{{formatDateFromNow(process.last_batch)}}</td>
                 <td>{{process.hostname}}</td>
                 <td>{{process.program_name}}</td>
             </tr>
