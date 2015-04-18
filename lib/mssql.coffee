@@ -21,7 +21,7 @@ query = (req, res) ->
     template = req.body.template
     if !TEMPLATES[template]
         TEMPLATES[template] = fs.readFileSync(path.join(root, 'lib/sql', "#{template}.sql"), {encoding: 'utf8'})
-    template = mustache.render(TEMPLATES[template], req.body)
+    template = mustache.render(TEMPLATES[template], req.body.data)
 
     connection = new mssql.Connection(config, (err) ->
         res.send 500, err if err

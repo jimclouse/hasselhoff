@@ -30,7 +30,7 @@
                 <td>{{process.spid}}</td>
                 <td>{{process.databaseName}}</td>
                 <td>{{process.status}}</td>
-                <td>{{process.cmd}}</td>
+                <td><a href="" ng-click="loadData('get_spid_text', {'spid': process.spid}, deArrayify)">{{process.cmd}}</a></td>
                 <td>{{process.blocked}}</td>
                 <td>{{formatDateFromNow(process.lastBatch)}}</td>
                 <td>{{process.hostname}}</td>
