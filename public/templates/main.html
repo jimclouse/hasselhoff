@@ -1,5 +1,5 @@
 <!-- Intro page -->
-<div ng-show="page=='main'">
+<div ng-show="nav.page=='main'">
     <div class="container intro">
         <div class="jumbotron">
             <h1><i class="fa fa-life-ring"></i> Data Hasselhoff</h1>
@@ -15,7 +15,7 @@
                     View info such as current processes, tables, database sizes, etc.
                 </p>
                 <p>
-                    <a class="btn btn-default" href="" role="button" ng-click="page='system'">Get Started »</a>
+                    <a class="btn btn-default" href="" role="button" ng-click="navigate('system')">Get Started »</a>
                 </p>
             </div>
             <div class="col-sm-6">
@@ -24,7 +24,7 @@
                     Here you'll find tools to help you tune your database. This section includes information such as unused indexes, unused stored procedures, fragmented indexes, etc.
                 </p>
                 <p>
-                    <a class="btn btn-default" href="" role="button" ng-click="page='maintenance'">Get Started »</a>
+                    <a class="btn btn-default" href="" role="button" ng-click="navigate('maintenance')">Get Started »</a>
                 </p>
             </div>
         </div>
@@ -32,27 +32,27 @@
 </div>
 
 <!-- System Info page -->
-<div class="container" ng-show="page=='system'">
-    <h1>System Information</h1>
-    <div ng-hide="1==2">
+<div class="container" ng-show="nav.page=='system'">
+    <div ng-hide="partial">
+        <h1>System Information</h1>
         <ul>
-            <li><a href="" ng-click="fetchQuery('get_sysprocesses')">System Processes</a></li>
+            <li><a href="" ng-click="loadData('get_sysprocesses')">System Processes</a></li>
         </ul>
     </div>
-    <div ng-if="partial">
-        <ng-include src="'templates/' + partial + '.html'"></ng-include>
-    </div>
+</div>
 
+<div ng-if="partial">
+    <ng-include src="'templates/' + partial + '.html'"></ng-include>
 </div>
 
 <!-- Maintenance Page -->
-<div class="container" ng-show="page=='maintenance'">
+<div class="container" ng-show="nav.page=='maintenance'">
     <h1>Maintenance</h1>
 </div>
 
 <!-- back button -->
-<div class="container" ng-hide="page=='main'">
+<div class="container" ng-hide="nav.page=='main'">
     <p>
-        <a class="btn btn-default" href="" role="button" ng-click="page='main'">« Back</a>
+        <a class="btn btn-default" href="" role="button" ng-click="navigateBack()">« Back</a>
     </p>
 </div>
