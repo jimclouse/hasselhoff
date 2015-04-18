@@ -3,24 +3,42 @@
     <div class="pull-right">
         <a class="btn btn-default" href="" role="button" ng-click="navigateBack()">« Back</a>
     </div>
-    <input type="checkbox" ng-model="this.showSystem" value="1"> Show System Processes
+    <div>
+        <input type="checkbox" ng-model="this.showSystem" value="1"> Show System Processes
+        <input type="checkbox" ng-model="this.showSleeping" value="1"> Show Sleeping Processes
+    </div>
     <table width="100%" class="table table-condensed table-striped">
         <thead class="thead">
             <tr>
-                <th>spid</th>
-                <th>blocked</th>
-                <th>last_batch</th>
-                <th>hostname</th>
-                <th>program_name</th>
+                <th>Spid</th>
+                <th>Database</th>
+                <th>Status</th>
+                <th>Command</th>
+                <th>Blocked</th>
+                <th>Last Batch</th>
+                <th>Hostname</th>
+                <th>Program Name</th>
+                <th>CPU</th>
+                <th>IO</th>
+                <th>Mem</th>
             </tr>
         <thead>
-        <tbody >
-            <tr ng-repeat="process in infos" ng-show="process.spid > 30 || this.showSystem" ng-class="process.blocked == 1 ? 'danger' : ''">
+        <tbody ><!--   -->
+            <tr ng-repeat="process in infos" 
+                ng-show="(process.spid > 30 || this.showSystem) &&(process.status != 'sleeping' || this.showSleeping)"
+                ng-class="process.blocked == 1 ? 'danger' : ''">
                 <td>{{process.spid}}</td>
+                <td>{{process.databaseName}}</td>
+                <td>{{process.status}}</td>
+                <td>{{process.cmd}}</td>
                 <td>{{process.blocked}}</td>
-                <td>{{formatDateFromNow(process.last_batch)}}</td>
+                <td>{{formatDateFromNow(process.lastBatch)}}</td>
                 <td>{{process.hostname}}</td>
-                <td>{{process.program_name}}</td>
+                <td>{{process.programName}}</td>
+                <td>{{process.cpu}}</td>
+                <td>{{process.physicalIo}}</td>
+                <td>{{process.memUsage}}</td>
+
             </tr>
         </tbody>      
     </table>
