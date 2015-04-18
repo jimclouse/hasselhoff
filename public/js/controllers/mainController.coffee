@@ -18,15 +18,16 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
             .catch (err) ->
                 console.error err
 
-
     fetchQuery = (template) ->
         query(template).then (data) -> 
-            $scope.infos = data        
+            $scope.infos = data    
             $scope.partial = template.replace('get_', '')
 
     # initialize
     $scope.nav =
         page: 'main'
+
+    $scope.this = {}
 
     navStack = ['main']
 
