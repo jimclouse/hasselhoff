@@ -1,5 +1,5 @@
 app = angular.module("app", [
-    'ngRoute'
+    'ngRoute', 'ngSanitize'
 ]).config ($routeProvider) ->
     $routeProvider
         .when("/",
