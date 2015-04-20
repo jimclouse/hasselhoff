@@ -4,9 +4,11 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
     $scope.navigateBack = () ->
         navStack.pop()
         p = navStack.slice(-1)[0]
-        $scope.partial = null if p in ['main', 'system', 'maintenance']
+        if p in ['main', 'system', 'maintenance']
+            $scope.partial = null
+        else 
+            $scope.partial = p
         $scope.nav.page = p
-        $scope.partial = p
 
     $scope.navigate = (page) ->
         navStack.push(page)
