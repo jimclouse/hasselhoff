@@ -13,6 +13,10 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         navStack.push(page)
         $scope.nav.page = page
 
+    $scope.goHome = () ->
+        navStack = []
+        $scope.nav.page = 'main'
+
     $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()
 
