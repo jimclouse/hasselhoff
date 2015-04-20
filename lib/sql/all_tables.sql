@@ -1,1 +1,0 @@
-select name from {{#database}}{{database}}.{{/database}}sys.tables;
