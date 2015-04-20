@@ -28,6 +28,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
                 console.error err
 
     fetchQuery = (template, data, processFn) ->
+        data.database = $scope.selectedDatabase.name
         query(template, data).then (data) ->
             $scope.partial = template.replace('get_', '')
             $scope.infos = processFn(data)
