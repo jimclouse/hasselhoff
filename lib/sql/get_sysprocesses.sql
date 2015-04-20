@@ -1,3 +1,5 @@
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+ 
 select  s.spid
         ,rtrim(ltrim(s.status)) as status
         ,rtrim(ltrim(s.cmd)) as cmd
