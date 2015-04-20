@@ -48,6 +48,10 @@
 <!-- Maintenance Page -->
 <div class="container" ng-show="nav.page=='maintenance'">
     <h1>Maintenance</h1>
+    <ul>
+        <li><a href="" ng-click="loadData('get_missingIndexes', {})">Missing Indexes</a></li>
+        <li><a href="" ng-click="loadData('get_unusedIndexes', {})">Unused Indexes</a></li>
+    </ul>
 </div>
 
 <!-- back button -->

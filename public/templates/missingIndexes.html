@@ -1,0 +1,25 @@
+
+    <h3>Top Missing Indexes</h3>
+    <div class="pull-right">
+        <a class="btn btn-default" href="" role="button" ng-click="navigateBack()">« Back</a>
+    </div>
+    <table width="100%" class="table table-condensed table-striped">
+        <thead class="thead">
+            <tr>
+                <th>Cost</th>
+                <th>Statement</th>
+                <th>Equality Cols</th>
+                <th>Inequality Cols</th>
+                <th>Includes</th>
+            </tr>
+        <thead>
+        <tbody >
+            <tr ng-repeat="index in infos" >
+                <td>{{index.cost}}</td>
+                <td>{{index.statement}}</td>
+                <td>{{index.equality}}</td>
+                <td>{{index.inequality}}</td>
+                <td>{{index.included}}</td>
+            </tr>
+        </tbody>      
+    </table>

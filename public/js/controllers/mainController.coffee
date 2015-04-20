@@ -6,7 +6,6 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         p = navStack.slice(-1)[0]
         $scope.partial = null if p in ['main', 'system', 'maintenance']
         $scope.nav.page = p
-        console.log p
         $scope.partial = p
 
     $scope.navigate = (page) ->
@@ -16,6 +15,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
     $scope.goHome = () ->
         navStack = []
         $scope.nav.page = 'main'
+        $scope.partial = null
 
     $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()

@@ -1,0 +1,29 @@
+
+    <h3>Top Un-Used Indexes</h3>
+    <div class="pull-right">
+        <a class="btn btn-default" href="" role="button" ng-click="navigateBack()">« Back</a>
+    </div>
+    <table width="100%" class="table table-condensed table-striped">
+        <thead class="thead">
+            <tr>
+                <th>Table</th>
+                <th>Index</th>
+                <th>Updates</th>
+                <th>Scans</th>
+                <th>Seeks</th>
+                <th>Lookups</th>
+                <th>Total Usage</th>
+            </tr>
+        <thead>
+        <tbody >
+            <tr ng-repeat="index in infos" >
+                <td>{{index.schemaName}}.{{index.tableName}}</td>
+                <td>{{index.indexName}}</td>
+                <td>{{index.updates}}</td>
+                <td>{{index.scans}}</td>
+                <td>{{index.seeks}}</td>
+                <td>{{index.lookups}}</td>
+                <td>{{index.totalUsage}}</td>
+            </tr>
+        </tbody>      
+    </table>
