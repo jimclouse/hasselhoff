@@ -1,44 +1,41 @@
+<div class="pull-right"><a class="btn btn-default partial-back-button" href="" role="button" ng-click="navigateBack()">« Back</a></div>
+<h3>Sys Processes</h3>
+<div>
+    <input type="checkbox" ng-model="this.showSystem" value="1"> Show System Processes
+    <input type="checkbox" ng-model="this.showSleeping" value="1"> Show Sleeping Processes
+</div>
+<table width="100%" class="table table-condensed table-striped">
+    <thead class="thead">
+        <tr>
+            <th>Spid</th>
+            <th>Database</th>
+            <th>Status</th>
+            <th>Command</th>
+            <th>Blocked</th>
+            <th>Last Batch</th>
+            <th>Hostname</th>
+            <th>Program Name</th>
+            <th>CPU</th>
+            <th>IO</th>
+            <th>Mem</th>
+        </tr>
+    <thead>
+    <tbody ><!--   -->
+        <tr ng-repeat="process in infos" 
+            ng-show="(process.spid > 30 || this.showSystem) &&(process.status != 'sleeping' || this.showSleeping)"
+            ng-class="process.blocked == 1 ? 'danger' : ''">
+            <td>{{process.spid}}</td>
+            <td>{{process.databaseName}}</td>
+            <td>{{process.status}}</td>
+            <td><a href="" ng-click="loadData('get_spid_text', {'spid': process.spid}, deArrayify)">{{process.cmd}}</a></td>
+            <td>{{process.blocked}}</td>
+            <td>{{formatDateFromNow(process.lastBatch)}}</td>
+            <td>{{process.hostname}}</td>
+            <td>{{process.programName}}</td>
+            <td>{{process.cpu}}</td>
+            <td>{{process.physicalIo}}</td>
+            <td>{{process.memUsage}}</td>
 
-    <h3>Sys Processes</h3>
-    <div class="pull-right">
-        <a class="btn btn-default" href="" role="button" ng-click="navigateBack()">« Back</a>
-    </div>
-    <div>
-        <input type="checkbox" ng-model="this.showSystem" value="1"> Show System Processes
-        <input type="checkbox" ng-model="this.showSleeping" value="1"> Show Sleeping Processes
-    </div>
-    <table width="100%" class="table table-condensed table-striped">
-        <thead class="thead">
-            <tr>
-                <th>Spid</th>
-                <th>Database</th>
-                <th>Status</th>
-                <th>Command</th>
-                <th>Blocked</th>
-                <th>Last Batch</th>
-                <th>Hostname</th>
-                <th>Program Name</th>
-                <th>CPU</th>
-                <th>IO</th>
-                <th>Mem</th>
-            </tr>
-        <thead>
-        <tbody ><!--   -->
-            <tr ng-repeat="process in infos" 
-                ng-show="(process.spid > 30 || this.showSystem) &&(process.status != 'sleeping' || this.showSleeping)"
-                ng-class="process.blocked == 1 ? 'danger' : ''">
-                <td>{{process.spid}}</td>
-                <td>{{process.databaseName}}</td>
-                <td>{{process.status}}</td>
-                <td><a href="" ng-click="loadData('get_spid_text', {'spid': process.spid}, deArrayify)">{{process.cmd}}</a></td>
-                <td>{{process.blocked}}</td>
-                <td>{{formatDateFromNow(process.lastBatch)}}</td>
-                <td>{{process.hostname}}</td>
-                <td>{{process.programName}}</td>
-                <td>{{process.cpu}}</td>
-                <td>{{process.physicalIo}}</td>
-                <td>{{process.memUsage}}</td>
-
-            </tr>
-        </tbody>      
-    </table>
+        </tr>
+    </tbody>      
+</table>
