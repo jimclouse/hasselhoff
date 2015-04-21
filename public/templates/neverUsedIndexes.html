@@ -1,0 +1,18 @@
+<div class="pull-right"><a class="btn btn-default partial-back-button" href="" role="button" ng-click="navigateBack()">« Back</a></div>
+<h3>Never-used Indexes</h3>
+These indexes have not been used since the last server restart. So long at the server has been running for several months or more, these indexes are generally safe to remove.
+
+<table width="100%" class="table table-condensed table-striped">
+    <thead class="thead">
+        <tr>
+            <th>Table</th>
+            <th>Index</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="index in infos" >
+            <td>{{index.tableName}}.{{index.schemaName}}</td>
+            <td>{{index.indexName}}</td>
+        </tr>
+    </tbody>      
+</table>
