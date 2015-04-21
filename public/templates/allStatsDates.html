@@ -1,0 +1,25 @@
+<div class="pull-right"><a class="btn btn-default partial-back-button" href="" role="button" ng-click="navigateBack()">« Back</a></div>
+<h3>Statistics Last Updated</h3>
+Index statistics in order of least recently updated statistics. Only indexes with 500 rows or more are included.
+<table width="100%" class="table table-condensed table-striped">
+    <thead class="thead">
+        <tr>
+            <th>Table</th>
+            <th>Index</th>
+            <th>Stats Last Updated</th>
+            <th>Row Count</th>
+            <th>Number of Changes</th>
+            <th>% Updated</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="index in infos" >
+            <td>{{index.schemaName}}.{{index.tableName}}</td>
+            <td>{{index.indexName}}</td>
+            <td>{{index.lastUpdateDate}}</td>
+            <td>{{index.indexCount}}</td>
+            <td>{{index.numberChanges}}</td>
+            <td>{{index.pctRowsChanged}}</td>
+        </tr>
+    </tbody>      
+</table>
