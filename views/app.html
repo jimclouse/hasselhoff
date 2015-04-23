@@ -10,7 +10,11 @@
             </div>
 
             <div class="pull-right">
-                <select ng-model="selectedDatabase" ng-options="db.name for db in databases"></select>
+                <span>
+                    Options
+                </span>
+                <span class="red-spacer">|</span>
+                <span><strong>Database:</strong> <select ng-model="selectedDatabase" ng-options="db.name for db in databases"></select></span>
             </div>
         </div>
         <div ng-view></div>
