@@ -1,0 +1,28 @@
+<div class="pull-right"><a class="btn btn-default partial-back-button" href="" role="button" ng-click="navigateBack()">« Back</a></div>
+<h3>Most Blocked Queries</h3>
+
+<table width="100%" class="table table-condensed table-striped">
+    <thead class="thead">
+        <tr>
+            <th>Total Time Blocked (s)</th>
+            <th>CPU %</th>
+            <th>Waiting %</th>
+            <th># Executions</th>
+            <th>Blocking Avg (s)</th>
+            <th>Query</th>
+            <th>Parent Query</th>
+            
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="query in infos" >
+            <td>{{query.totalTimeBlocked}}</td>
+            <td>{{query.pctCpu}}</td>
+            <td>{{query.pctWaiting}}</td>
+            <td>{{query.execCount}}</td>
+            <td>{{query.avgCpuSeconds}}</td>
+            <td>{{query.individualQuery}}</td>
+            <td>{{query.parentQuery}}</td>
+        </tr>
+    </tbody>      
+</table>
