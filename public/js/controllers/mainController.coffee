@@ -36,7 +36,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
     fetchQuery = (template, data, processFn) ->
         data.database = $scope.selectedDatabase.name
         query(template, data).then (data) ->
-            $scope.partial = template.replace('get_', '')
+            $scope.partial = template
             $scope.infos = processFn(data)
             resultStack.push $scope.infos
 
@@ -47,13 +47,13 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
     navStack = ['main']
     resultStack = []
 
-    query('get_databases').then (data) -> 
+    query('allDatabases').then (data) -> 
         $scope.databases = data
         $scope.selectedDatabase = _.first _.filter data, (d) -> d.name == 'master'
 
-    $scope.loadData = (template, data, processFn=identity) ->
+    loadData = $scope.loadData = (template, data, processFn=identity) ->
         $scope.partial = 'loading'
-        $scope.navigate(template.replace('get_', '')) # set navigation
+        $scope.navigate(template) # set navigation
         fetchQuery(template, data, processFn)
 
     # post processing functions

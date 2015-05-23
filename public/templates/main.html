@@ -36,8 +36,8 @@
     <div ng-hide="partial">
         <h1>System Information</h1>
         <ul>
-            <li><a href="" ng-click="loadData('get_sysprocesses', {})">System Processes</a></li>
-            <li><a href="" ng-click="loadData('get_tables', {})">All Tables</a></li>
+            <li><a href="" ng-click="loadData('sysprocesses', {})">System Processes</a></li>
+            <li><a href="" ng-click="loadData('allTables', {})">All Tables</a></li>
         </ul>
     </div>
 </div>
@@ -50,13 +50,13 @@
 <div class="container" ng-show="nav.page=='maintenance'">
     <h1>Maintenance</h1>
     <ul>
-        <li><a href="" ng-click="loadData('get_missingIndexes', {})">Missing Indexes</a></li>
-        <li><a href="" ng-click="loadData('get_lowUseIndexes', {})">Low-use Indexes</a></li>
-        <li><a href="" ng-click="loadData('get_neverUsedIndexes', {})">Never Used Indexes</a></li>
-        <li><a href="" ng-click="loadData('get_allStatsDates', {})">Statistics Last Updated</a></li>
-        <li><a href="" ng-click="loadData('get_slowQueries', {})">Slowest Queries</a></li>
-        <li><a href="" ng-click="loadData('get_mostBlockedQueries', {})">Most Blocked Queries</a></li>
-        <li><a href="" ng-click="loadData('get_highCpuQueries', {})">Highest CPU Queries</a></li>
+        <li><a href="" ng-click="loadData('missingIndexes', {})">Missing Indexes</a></li>
+        <li><a href="" ng-click="loadData('lowUseIndexes', {})">Low-use Indexes</a></li>
+        <li><a href="" ng-click="loadData('neverUsedIndexes', {})">Never Used Indexes</a></li>
+        <li><a href="" ng-click="loadData('allStatsDates', {})">Statistics Last Updated</a></li>
+        <li><a href="" ng-click="loadData('slowQueries', {})">Slowest Queries</a></li>
+        <li><a href="" ng-click="loadData('mostBlockedQueries', {})">Most Blocked Queries</a></li>
+        <li><a href="" ng-click="loadData('highCpuQueries', {})">Highest CPU Queries</a></li>
 
     </ul>
 </div>

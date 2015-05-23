@@ -1,4 +1,4 @@
-<ng-include src="'templates/partials/top-back-button.html'"></ng-include>
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
 <h3>Sys Processes</h3>
 <div>
     <input type="checkbox" ng-model="this.showSystem" value="1"> Show System Processes
@@ -27,7 +27,7 @@
             <td>{{process.spid}}</td>
             <td>{{process.databaseName}}</td>
             <td>{{process.status}}</td>
-            <td><a href="" ng-click="loadData('get_spid_text', {'spid': process.spid}, deArrayify)">{{process.cmd}}</a></td>
+            <td><a href="" ng-click="loadData('spidText', {'spid': process.spid}, deArrayify)">{{process.cmd}}</a></td>
             <td>{{process.blocked}}</td>
             <td>{{formatDateFromNow(process.lastBatch)}}</td>
             <td>{{process.hostname}}</td>
