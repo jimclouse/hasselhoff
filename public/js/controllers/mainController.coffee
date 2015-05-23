@@ -3,11 +3,14 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
 
     $scope.navigateBack = () ->
         navStack.pop()
+        resultStack.pop()
         p = navStack.slice(-1)[0]
         if p in ['main', 'system', 'maintenance']
             $scope.partial = null
+            $scope.infos = null
         else 
             $scope.partial = p
+            $scope.infos = resultStack.slice(-1)[0]
         $scope.nav.page = p
 
     $scope.navigate = (page) ->
@@ -16,6 +19,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
 
     $scope.goHome = () ->
         navStack = []
+        resultStack = []
         $scope.nav.page = 'main'
         $scope.partial = null
 
@@ -34,14 +38,14 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         query(template, data).then (data) ->
             $scope.partial = template.replace('get_', '')
             $scope.infos = processFn(data)
+            resultStack.push $scope.infos
 
     # initialize
     $scope.nav =
         page: 'main'
-
     $scope.this = {}
-
     navStack = ['main']
+    resultStack = []
 
     query('get_databases').then (data) -> 
         $scope.databases = data
@@ -56,5 +60,4 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
     identity = _.identity
 
     $scope.deArrayify = (data) ->
-        console.log data
         data[0]
