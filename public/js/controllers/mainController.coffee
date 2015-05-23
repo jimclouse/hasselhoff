@@ -8,6 +8,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         if p in ['main', 'system', 'maintenance']
             $scope.partial = null
             $scope.infos = null
+            $scope.pageCahce = null
         else 
             $scope.partial = p
             $scope.infos = resultStack.slice(-1)[0]
@@ -22,6 +23,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         resultStack = []
         $scope.nav.page = 'main'
         $scope.partial = null
+        $scope.pageCahce = null
 
     $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()
@@ -51,10 +53,20 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         $scope.databases = data
         $scope.selectedDatabase = _.first _.filter data, (d) -> d.name == 'master'
 
+    # main data function called from the page links
     loadData = $scope.loadData = (template, data, processFn=identity) ->
         $scope.partial = 'loading'
         $scope.navigate(template) # set navigation
+        $scope.pageCache =
+            template: template
+            data: data
+            processFn: processFn
         fetchQuery(template, data, processFn)
+
+    # use the stored pageCache info to re-run the current query
+    $scope.refresh = () ->
+        $scope.partial = 'loading'
+        fetchQuery($scope.pageCache.template, $scope.pageCache.data, $scope.pageCache.processFn)
 
     # post processing functions
     identity = _.identity
