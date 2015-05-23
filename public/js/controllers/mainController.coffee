@@ -56,4 +56,5 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
     identity = _.identity
 
     $scope.deArrayify = (data) ->
+        console.log data
         data[0]

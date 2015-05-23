@@ -2,6 +2,10 @@
 <h3>Spid Text</h3>
 <div>
     <strong>Spid # {{infos.sessionId}}</strong><br/>
-    {{infos.spidText}}
-
+    <span ng-show="infos.spidText">
+        {{infos.spidText}}
+    </span>
+    <span ng-hide="infos.spidText">
+        <strong>No Query Text Available</strong>
+    </span>
 </div>
