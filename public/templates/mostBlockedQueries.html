@@ -10,8 +10,8 @@
             <th>Waiting %</th>
             <th># Executions</th>
             <th>Blocking Avg (s)</th>
-            <th>Query</th>
-            <th>Parent Query</th>
+            <th width="40%">Query</th>
+            <th width="40%">Parent Query</th>
             
         </tr>
     <thead>
@@ -22,8 +22,8 @@
             <td>{{query.pctWaiting}}</td>
             <td>{{query.execCount}}</td>
             <td>{{query.avgCpuSeconds}}</td>
-            <td>{{query.individualQuery}}</td>
-            <td>{{query.parentQuery}}</td>
+            <td ng-bind-html="formatSql(query.individualQuery)"></td>
+            <td ng-bind-html="formatSql(query.parentQuery)"></td>
         </tr>
     </tbody>      
 </table>

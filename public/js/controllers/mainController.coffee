@@ -1,5 +1,5 @@
 
-app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
+app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
 
     $scope.navigateBack = () ->
         navStack.pop()
@@ -30,6 +30,9 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
 
     $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()
+
+    $scope.formatSql = (tsql) ->
+        formatSql.format(tsql)
 
     query = (template, data) ->
         $http.post('/query', {template: template, data: data})
