@@ -39,19 +39,8 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         data.database = $scope.selectedDatabase.name
         query(template, data).then (data) ->
             $scope.partial = template
-            $scope.infos = processFn(data)
+            $scope.infos = processFn(data[0])
             resultStack.push $scope.infos
-
-    # initialize
-    $scope.nav =
-        page: 'main'
-    $scope.this = {}
-    navStack = ['main']
-    resultStack = []
-
-    query('allDatabases').then (data) -> 
-        $scope.databases = data
-        $scope.selectedDatabase = _.first _.filter data, (d) -> d.name == 'master'
 
     # main data function called from the page links
     loadData = $scope.loadData = (template, data, processFn=identity) ->
@@ -73,3 +62,21 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
 
     $scope.deArrayify = (data) ->
         data[0]
+
+    # initialization
+    $scope.nav =
+        page: 'main'
+    $scope.this = {}
+    navStack = ['main']
+    resultStack = []
+
+    query('allDatabases').then (data) -> 
+        $scope.databases = data[0]
+        $scope.selectedDatabase = _.first _.filter data[0], (d) -> d.name == 'master'
+
+    query('serverStats').then (data) ->
+        $scope.server = 
+            name: data[0][0].SERVERNAME
+            version: data[1][0].VERSION
+            lastRestart: moment((data[2][0].sqlserver_start_time)?.replace('Z', '')).format('YYYY/M/D HH:m:s')
+            
