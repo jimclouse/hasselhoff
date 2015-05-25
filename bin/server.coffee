@@ -8,10 +8,7 @@ app = express()
 app.set('root', process.cwd())
 
 #get the port situated based on environment
-if process.env.ENVIRONMENT == "production"
-    _port = 8080;
-else # Development env
-    _port = 9000;
+_port = 9000;
 
 # sample setting environment variables
 app.locals.appEnvVar = process.env['APP_ENV_VAR']
