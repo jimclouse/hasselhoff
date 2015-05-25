@@ -25,6 +25,9 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         $scope.partial = null
         $scope.pageCahce = null
 
+    $scope.changeDatabase = () ->
+        refresh() if $scope.partial
+
     $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()
 
@@ -53,7 +56,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout) ->
         fetchQuery(template, data, processFn)
 
     # use the stored pageCache info to re-run the current query
-    $scope.refresh = () ->
+    refresh = $scope.refresh = () ->
         $scope.partial = 'loading'
         fetchQuery($scope.pageCache.template, $scope.pageCache.data, $scope.pageCache.processFn)
 
