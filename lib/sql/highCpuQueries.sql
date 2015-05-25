@@ -1,5 +1,4 @@
-USE {{database}};
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
 SELECT  TOP 20 CAST((qs.total_worker_time) / 1000000.0 AS DECIMAL(28,2)) AS totalCpuTime
         ,CAST(qs.total_worker_time * 100.0 / qs.total_elapsed_time AS DECIMAL(28,2)) AS pctCpu
@@ -15,4 +14,5 @@ FROM  sys.dm_exec_query_stats qs
   CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
   CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
 WHERE   qs.total_elapsed_time > 0
+    AND     qp.dbid = DB_ID(N'{{database}}')
 ORDER BY totalCpuTime DESC;

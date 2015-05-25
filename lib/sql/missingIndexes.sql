@@ -1,7 +1,5 @@
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
-USE {{database}};
-
 SELECT  TOP 50
         ROUND(s.avg_total_user_cost *
             s.avg_user_impact
@@ -16,4 +14,5 @@ FROM    sys.dm_db_missing_index_groups g
         ON      s.group_handle = g.index_group_handle
     JOIN    sys.dm_db_missing_index_details d
         ON      d.index_handle = g.index_handle
+WHERE   d.database_id = DB_ID(N'{{database}}')
 ORDER BY    cost DESC;
