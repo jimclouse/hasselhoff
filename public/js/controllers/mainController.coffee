@@ -35,7 +35,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
         formatSql.format(tsql)
 
     query = (template, data) ->
-        $http.post('/query', {template: template, data: data})
+        $http.post('query', {template: template, data: data})
             .then (res) ->
                 return res.data
             .catch (err) ->
