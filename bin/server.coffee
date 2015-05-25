@@ -10,9 +10,6 @@ app.set('root', process.cwd())
 #get the port situated based on environment
 _port = 9000;
 
-# sample setting environment variables
-app.locals.appEnvVar = process.env['APP_ENV_VAR']
-
 app.use '/static', express.static(path.join(app.get('root'), 'static'))
 app.use(express.static(app.get("root") + '/public'))
 app.use(bodyParser({ limit: '2mb' }))
