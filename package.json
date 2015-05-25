@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "source etc/environment; coffee ./bin/server.coffee",
+    "start": "coffee ./bin/server.coffee",
     "postinstall": "gulp"
   },
   "browser": {
