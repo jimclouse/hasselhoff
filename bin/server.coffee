@@ -21,6 +21,8 @@ app.engine('html', require('ejs').renderFile)
 app.get '/', (req, res) -> res.render 'app.html'
 app.get '/index', (req, res) -> res.render 'app.html'
 
+app.get '/health', (req, res) -> res.send 200
+
 app.post('/query', mssql.query)
 
 
