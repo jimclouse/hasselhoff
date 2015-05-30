@@ -5,22 +5,22 @@ Index statistics in order of least recently updated statistics. Only indexes wit
 <table width="100%" class="table table-condensed table-striped hofftable">
     <thead class="thead">
         <tr>
+            <th>Last Updated</th>
+            <th>Row Count</th>
+            <th># Changes</th>
+            <th>% Updated</th>
             <th>Table</th>
             <th>Index</th>
-            <th>Stats Last Updated</th>
-            <th>Row Count</th>
-            <th>Number of Changes</th>
-            <th>% Updated</th>
         </tr>
     <thead>
     <tbody >
-        <tr ng-repeat="index in infos" >
-            <td>{{index.schemaName}}.{{index.tableName}}</td>
-            <td>{{index.indexName}}</td>
-            <td>{{index.lastUpdateDate}}</td>
+        <tr ng-repeat="index in infos" ng-class="index.pctRowsChanged >= 5 ? 'danger' : ''">
+            <td><nobr>{{formatDateTime(index.lastUpdateDate)}}</nobr></td>
             <td>{{index.indexCount}}</td>
             <td>{{index.numberChanges}}</td>
             <td>{{index.pctRowsChanged}}</td>
+            <td>{{index.schemaName}}.{{index.tableName}}</td>
+            <td>{{index.indexName}}</td>
         </tr>
     </tbody>      
 </table>
