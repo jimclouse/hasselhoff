@@ -10,7 +10,9 @@ config =
     user: process.env.USER_NAME
     password: process.env.PASSWORD
     server: process.env.SERVER
+    connectionTimeout: 60000
     # we dont choose a db, but let the templates dictacte db
+
 
 root = process.cwd()
 
