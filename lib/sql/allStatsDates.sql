@@ -16,4 +16,4 @@ FROM    sys.sysindexes i
 WHERE   i.id > 100
   AND     i.indid > 0
   AND     i.rowcnt >= 500
-ORDER BY lastUpdateDate, schemaName, tableName, indexName
+ORDER BY pctRowsChanged desc, lastUpdateDate, schemaName, tableName, indexName
