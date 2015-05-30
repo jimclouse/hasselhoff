@@ -1,3 +1,5 @@
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
 DECLARE @spid int = {{spid}};
 
 SELECT  es.session_id as sessionId
