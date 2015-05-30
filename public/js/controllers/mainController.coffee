@@ -31,6 +31,9 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
     $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()
 
+    $scope.formatDateTime = (datetime) ->
+        moment(datetime.replace('Z', '')).format('YYYY-MM-DD HH:mm:ss')
+
     $scope.formatSql = (tsql) ->
         formatSql.format(tsql)
 
