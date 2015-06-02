@@ -10,9 +10,9 @@ SELECT  TOP 20 CAST((qs.total_elapsed_time - qs.total_worker_time) / 1000000.0 A
                 ELSE qs.statement_end_offset
         END - qs.statement_start_offset)/2) + 1) AS individualQuery
         ,qt.text AS parentQuery
+        ,db_name(qp.dbid) as dbName
 FROM    sys.dm_exec_query_stats qs
     CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
     CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
 WHERE   qs.total_elapsed_time > 0
-    AND     qp.dbid = DB_ID(N'{{database}}')
 ORDER BY totalTimeBlocked DESC;

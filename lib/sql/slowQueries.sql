@@ -11,9 +11,9 @@ SELECT TOP 50   CAST(qs.total_elapsed_time / 1000000.0 AS DECIMAL(28, 2)) AS tot
                     END - qs.statement_start_offset)/2) + 1) AS individualQuery
                 ,qt.text AS parentQuery
                 ,qp.query_plan as queryPlan
+                ,db_name(qp.dbid) as dbName
 FROM    sys.dm_exec_query_stats qs
     CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
     CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp 
 WHERE   qs.total_elapsed_time > 0
-    AND     qp.dbid = DB_ID(N'{{database}}')
 ORDER BY    qs.total_elapsed_time DESC;
