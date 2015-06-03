@@ -28,7 +28,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
     $scope.changeDatabase = () ->
         refresh() if $scope.partial
 
-    $scope.formatDateFromNow = (datetime) ->
+    formatDateFromNow = $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()
 
     $scope.formatDateTime = (datetime) ->
@@ -80,6 +80,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
         clear = []
         
         _.each data, (d) ->
+            d.dateFromNow = formatDateFromNow(d.lastBatch) # hack this in here
             if d.blocked != 0 
                 blockers.push(d.blocked)
                 blocked.push(d.spid)
