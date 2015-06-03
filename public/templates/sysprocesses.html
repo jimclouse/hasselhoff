@@ -24,13 +24,13 @@
     <thead>
     <tbody ><!--   -->
         <tr ng-repeat="process in infos" 
-            ng-show="(process.spid > 30 || this.showSystem) &&(process.status != 'sleeping' || this.showSleeping)"
-            ng-class="process.blocked == 1 ? 'danger' : ''">
+            ng-show="(process.spid > 30 || this.showSystem) &&((process.status != 'sleeping' || this.showSleeping) || process.isBlockingHead)"
+            ng-class="process.isBlockingHead == 1 ? 'super-bad' : (process.blocked != 0 ? 'danger' : '') ">
             <td>{{process.spid}}</td>
             <td>{{process.databaseName}}</td>
             <td>{{process.status}}</td>
             <td><a href="" ng-click="loadData('spidText', {'spid': process.spid}, deArrayify)">{{process.cmd}}</a></td>
-            <td>{{process.blocked}}</td>
+            <td>{{process.blocked}}<span ng-if="process.isBlockingHead">&nbsp;<strong>HEAD</strong></span></td>
             <td>{{formatDateFromNow(process.lastBatch)}}</td>
             <td>{{process.hostname}}</td>
             <td>{{process.programName}}</td>

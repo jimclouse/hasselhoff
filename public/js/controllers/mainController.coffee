@@ -72,6 +72,27 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
     $scope.deArrayify = (data) ->
         data[0]
 
+    $scope.findBlockers = (data) ->
+        # find spids that are not blocked but are blocking others
+        spids = {}
+        blocked = []
+        blockers = []
+        clear = []
+        
+        _.each data, (d) ->
+            if d.blocked != 0 
+                blockers.push(d.blocked)
+                blocked.push(d.spid)
+            else 
+                clear.push(d.spid)
+
+        heads = _.intersection(clear, blockers)
+        _.each data, (d) ->
+            if _.contains heads, d.spid
+                d.isBlockingHead = 1
+        data
+
+
     # initialization
     $scope.nav =
         page: 'main'
