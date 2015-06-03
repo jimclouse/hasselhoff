@@ -1,0 +1,20 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>Duplicate Indexes</h3>
+These indexes have identical keys. Before deleting any index, check for index options such as INCLUDES. Included columns are not considered keys and thus not part of the duplicate comparison.
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Table</th>
+            <th>Index</th>
+            <th>Duplicate Index</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="index in infos" >
+            <td>{{index.schemaName}}.{{index.tableName}}</td>
+            <td>{{index.indexName}}</td>
+            <td>{{index.duplicateIndexName}}</td>
+        </tr>
+    </tbody>      
+</table>
