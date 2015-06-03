@@ -53,19 +53,28 @@
 <!-- Maintenance Page -->
 <div class="container" ng-show="nav.page=='maintenance'">
     <h1>Maintenance</h1>
-    <ul>
-        <li><a href="" ng-click="loadData('missingIndexes', {})">Missing Indexes</a></li>
-        <li><a href="" ng-click="loadData('lowUseIndexes', {})">Low-use Indexes</a></li>
-        <li><a href="" ng-click="loadData('neverUsedIndexes', {})">Never Used Indexes</a></li>
-        <li><a href="" ng-click="loadData('duplicateIndexes', {})">Duplicate Indexes</a></li>
-        <li><a href="" ng-click="loadData('similarIndexes', {})">Similar Indexes</a></li>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Queries</h4>
+            <ul>
+                <li><a href="" ng-click="loadData('slowQueries', {})">Slowest Queries</a></li>
+                <li><a href="" ng-click="loadData('mostBlockedQueries', {})">Most Blocked Queries</a></li>
+                <li><a href="" ng-click="loadData('highCpuQueries', {})">Highest CPU Queries</a></li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h4>Indexes</h4>
+            <ul>
+                <li><a href="" ng-click="loadData('missingIndexes', {})">Missing Indexes</a></li>
+                <li><a href="" ng-click="loadData('lowUseIndexes', {})">Low-use Indexes</a></li>
+                <li><a href="" ng-click="loadData('neverUsedIndexes', {})">Never Used Indexes</a></li>
+                <li><a href="" ng-click="loadData('duplicateIndexes', {})">Duplicate Indexes</a></li>
+                <li><a href="" ng-click="loadData('similarIndexes', {})">Similar Indexes</a></li>
 
-        <li><a href="" ng-click="loadData('allStatsDates', {})">Statistics Last Updated</a></li>
-        <li><a href="" ng-click="loadData('slowQueries', {})">Slowest Queries</a></li>
-        <li><a href="" ng-click="loadData('mostBlockedQueries', {})">Most Blocked Queries</a></li>
-        <li><a href="" ng-click="loadData('highCpuQueries', {})">Highest CPU Queries</a></li>
-
-    </ul>
+                <li><a href="" ng-click="loadData('allStatsDates', {})">Statistics Last Updated</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <!-- back button -->
