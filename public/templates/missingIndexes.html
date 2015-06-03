@@ -1,7 +1,10 @@
 <ng-include src="'templates/partials/topBackButton.html'"></ng-include>
 <ng-include src="'templates/partials/refreshButton.html'"></ng-include>
 <h3>Top Missing Indexes</h3>
-
+<p>{{infos.length}} Potential Missing Indexes</p>
+These missing index recommendations come from the SQL Query optimizer. 
+<strong>Never simply create new indexes based on the suggestion of the query optimizer.</strong> The optimizer loves to suggest indexes on bit columns, which is a less than ideal candidate data type for an index.<br/>
+Before adding any index, find the query that is struggling, determine that the query cannot be modified to use less resources, then decide how best to index the underlying data.
 <table width="100%" class="table table-condensed table-striped hofftable">
     <thead class="thead">
         <tr>
