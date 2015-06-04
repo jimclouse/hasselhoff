@@ -29,9 +29,11 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
         refresh() if $scope.partial
 
     formatDateFromNow = $scope.formatDateFromNow = (datetime) ->
+        return unless datetime
         moment(datetime.replace('Z', '')).fromNow()
 
     formatDateTime = $scope.formatDateTime = (datetime) ->
+        return unless datetime
         moment(datetime.replace('Z', '')).format('YYYY-MM-DD HH:mm:ss')
 
     $scope.formatSql = (tsql) ->
