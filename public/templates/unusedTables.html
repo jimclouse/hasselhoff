@@ -1,0 +1,28 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>Unused Tables</h3>
+<p>{{infos.length}} Total Tables</p>
+Tables with a null Last Access Date have not been queried since the last server restart. 
+<br/>
+<strong>BE EXTREMELY CAUTIOUS BEFORE DELETING ANY TABLE</strong>
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Table</th>
+            <th>Last Access Date</th>
+            <th>Last Lookup</th>
+            <th>Last Scan</th>
+            <th>Last Seek</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="table in ::infos" 
+            ng-class="!table.lastAccessedDate ? 'danger' : '' ">
+            <td>{{table.schemaName}}.{{table.tableName}}</td>
+            <td>{{table.lastAccessedDate}}</td>
+            <td>{{table.lastUserLookup}}</td>
+            <td>{{table.lastUserScan}}</td>
+            <td>{{table.lastUserSeek}}</td>
+        </tr>
+    </tbody>      
+</table>
