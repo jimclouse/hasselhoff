@@ -1,0 +1,27 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>Database Space Used</h3>
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Database Size (GB)</th>
+            <th>Unallocated Space (GB)</th>
+            <th>Reserved (GB)</th>
+            <th>Log Size (GB)</th>
+            <th>Data (GB)</th>
+            <th>Index Size (GB)</th>
+            <th>Unused Space (GB)</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="info in ::infos">
+            <td>{{info.databaseSizeGb}}</td>
+            <td>{{info.unallocatedSpaceGb}}</td>
+            <td>{{info.reservedGb}}</td>
+            <td>{{info.logSizeGb}}</td>
+            <td>{{info.dataGb}}</td>
+            <td>{{info.indexSizeGb}}</td>
+            <td>{{info.unusedGb}}</td>
+        </tr>
+    </tbody>      
+</table>
