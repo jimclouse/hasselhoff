@@ -14,4 +14,4 @@ from    sysprocesses s
         on          s.dbid = d.dbid
 where   s.spid > 30
 group by rtrim(ltrim(s.hostname)), s.program_name
-order by rtrim(ltrim(s.hostname)), s.program_name
+order by count(*) desc, rtrim(ltrim(s.hostname)), s.program_name
