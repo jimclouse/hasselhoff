@@ -1,0 +1,34 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+
+<h3>Connections Grouped by Host & Program</h3>
+<p>{{infos.length}} Total Host/Programs Connected</p>
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Host Name</th>
+            <th>Program Name</th>
+            <th># of Connections</th>
+            <th>Latest Batch Date</th>
+            <th>First Batch Date</th>
+            <th>Total Cpu</th>
+            <th>Total IO</th>
+            <th>Total Mem</th>
+            <th># Open Transactions</th>
+        </tr>
+    <thead>
+    <tbody ><!--   -->
+        <tr ng-repeat="group in ::infos">
+            <td>{{group.hostName}}</td>
+            <td>{{group.programName}}</td>
+            <td>{{group.connectionCount}}</td>
+            <td>{{group.latestBatchDate}}</td>
+            <td>{{group.firstBatchDate}}</td>
+            <td>{{group.totalCpu}}</td>
+            <td>{{group.totalPhysicalIo}}</td>
+            <td>{{group.totalMemUsage}}</td>
+            <td>{{group.totalOpenTransactions}}</td>
+
+        </tr>
+    </tbody>      
+</table>

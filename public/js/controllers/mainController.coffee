@@ -31,7 +31,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
     formatDateFromNow = $scope.formatDateFromNow = (datetime) ->
         moment(datetime.replace('Z', '')).fromNow()
 
-    $scope.formatDateTime = (datetime) ->
+    formatDateTime = $scope.formatDateTime = (datetime) ->
         moment(datetime.replace('Z', '')).format('YYYY-MM-DD HH:mm:ss')
 
     $scope.formatSql = (tsql) ->
@@ -67,6 +67,8 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
         fetchQuery($scope.pageCache.template, $scope.pageCache.data, $scope.pageCache.processFn)
 
     # post processing functions
+    # these are specific functions used as a post query filtering or processing function
+    # reuse of these would be great, but the idea is that each query may have its own function
     identity = _.identity
 
     $scope.deArrayify = (data) ->
@@ -98,7 +100,14 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
             d.dateFromNow = formatDateFromNow(d.lastExecutionTime)
         data
 
+    $scope.formatProcessGroupDates = (data) ->
+        _.each data, (d) ->
+            d.latestBatchDate = formatDateTime(d.latestBatchDate)
+            d.firstBatchDate = formatDateTime(d.firstBatchDate)
+        data
+
     # initialization
+    #####################
     $scope.nav =
         page: 'main'
     $scope.this = {}
