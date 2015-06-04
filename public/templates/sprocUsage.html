@@ -1,0 +1,31 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>Stored Procedure Usage</h3>
+
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Procedure</th>
+            <th>Last Execution Time</th>
+            <th>Execution Count</th>
+            <th>Total Worker Time (s)</th>
+            <th>Total Elapsed Time (s)</th>
+            <th>Total Logical Reads</th>
+            <th>Total Physical Reads</th>
+            <th>Total Logical Writes</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="sproc in ::infos" 
+            ng-class="!sproc.lastExecutionTime ? 'danger' : '' ">
+            <td>{{sproc.sprocName}}</td>
+            <td>{{sproc.dateFromNow}}</td>
+            <td>{{sproc.executionCount}}</td>
+            <td>{{sproc.totalWorkerTime}}</td>
+            <td>{{sproc.totalElapsedTime}}</td>
+            <td>{{sproc.totalLogicalReads}}</td>
+            <td>{{sproc.totalPhysicalReads}}</td>
+            <td>{{sproc.totalLogicalWrites}}</td>
+        </tr>
+    </tbody>      
+</table>

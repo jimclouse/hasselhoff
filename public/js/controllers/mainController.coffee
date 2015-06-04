@@ -93,6 +93,10 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
                 d.isBlockingHead = 1
         data
 
+    $scope.preFormatSprocDatesFromNow = (data) ->
+        _.each data, (d) ->
+            d.dateFromNow = formatDateFromNow(d.lastExecutionTime)
+        data
 
     # initialization
     $scope.nav =
