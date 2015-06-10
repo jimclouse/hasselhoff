@@ -9,12 +9,22 @@ These indexes have not been used since the last server restart. So long at the s
         <tr>
             <th>Table</th>
             <th>Index</th>
+            <th>Updates</th>
+            <th>Scans</th>
+            <th>Seeks</th>
+            <th>Lookups</th>
+            <th>Total Usage</th>
         </tr>
     <thead>
     <tbody >
         <tr ng-repeat="index in infos" >
             <td>{{index.tableName}}.{{index.schemaName}}</td>
             <td>{{index.indexName}}</td>
+            <td>{{index.updates}}</td>
+            <td>{{index.scans}}</td>
+            <td>{{index.seeks}}</td>
+            <td>{{index.lookups}}</td>
+            <td>{{index.totalUsage}}</td>
         </tr>
     </tbody>      
 </table>

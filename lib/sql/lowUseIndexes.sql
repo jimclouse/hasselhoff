@@ -1,7 +1,7 @@
 USE {{database}};
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
-SELECT TOP 50   SCHEMA_NAME(o.Schema_ID) AS schemaName
+SELECT top 100 SCHEMA_NAME(o.Schema_ID) AS schemaName
     ,OBJECT_NAME(s.[object_id]) AS tableName
     ,i.name AS indexName
     ,s.user_updates as updates
