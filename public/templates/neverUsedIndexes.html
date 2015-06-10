@@ -18,7 +18,7 @@ These indexes have not been used since the last server restart. So long at the s
     <thead>
     <tbody >
         <tr ng-repeat="index in infos" >
-            <td>{{index.tableName}}.{{index.schemaName}}</td>
+            <td>{{index.schemaName}}.{{index.tableName}}</td>
             <td>{{index.indexName}}</td>
             <td>{{index.updates}}</td>
             <td>{{index.scans}}</td>
