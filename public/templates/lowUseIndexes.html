@@ -8,9 +8,12 @@ These indexes have very low reads since the last server restart, indicating they
             <th>Table</th>
             <th>Index</th>
             <th>Updates</th>
-            <th>Scans</th>
-            <th>Seeks</th>
-            <th>Lookups</th>
+            <th>User Scans</th>
+            <th>User Seeks</th>
+            <th>User Lookups</th>
+            <th>Sys Scans</th>
+            <th>Sys Seeks</th>
+            <th>Sys Lookups</th>
             <th>Total Usage</th>
         </tr>
     <thead>
@@ -19,9 +22,12 @@ These indexes have very low reads since the last server restart, indicating they
             <td>{{index.schemaName}}.{{index.tableName}}</td>
             <td>{{index.indexName}}</td>
             <td>{{index.updates}}</td>
-            <td>{{index.scans}}</td>
-            <td>{{index.seeks}}</td>
-            <td>{{index.lookups}}</td>
+            <td>{{index.userScans}}</td>
+            <td>{{index.userSeeks}}</td>
+            <td>{{index.userLookups}}</td>
+            <td>{{index.systemScans}}</td>
+            <td>{{index.systemSeeks}}</td>
+            <td>{{index.systemLookups}}</td>
             <td>{{index.totalUsage}}</td>
         </tr>
     </tbody>      
