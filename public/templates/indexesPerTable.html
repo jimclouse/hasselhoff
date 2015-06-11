@@ -1,0 +1,41 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>Indexes</h3>
+<p>{{infos.length}} Indexes</p>
+
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Index</th>
+            <th>Updates</th>
+            <th>User Scans</th>
+            <th>User Seeks</th>
+            <th>User Lookups</th>
+            <th>Sys Scans</th>
+            <th>Sys Seeks</th>
+            <th>Sys Lookups</th>
+            <th>Total Usage</th>
+            <th>Last User Update</th>
+            <th>Last User Scan</th>
+            <th>Last User Seek</th>
+            <th>Last User Lookup</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="index in infos" >
+            <td>{{index.indexName}}</td>
+            <td>{{index.userUpdates}}</td>
+            <td>{{index.userScans}}</td>
+            <td>{{index.userSeeks}}</td>
+            <td>{{index.userLookups}}</td>
+            <td>{{index.systemScans}}</td>
+            <td>{{index.systemSeeks}}</td>
+            <td>{{index.systemLookups}}</td>
+            <td>{{index.totalUsage}}</td>
+            <td>{{index.lastUserUpdate}}</td>
+            <td>{{index.lastUserScan}}</td>
+            <td>{{index.lastUserSeek}}</td>
+            <td>{{index.lastUserLookup}}</td>
+        </tr>
+    </tbody>      
+</table>

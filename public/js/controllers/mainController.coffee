@@ -108,6 +108,15 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
             d.firstBatchDate = formatDateTime(d.firstBatchDate)
         data
 
+    $scope.formatIndexes = (data) ->
+        debugger
+        _.each data, (d) ->
+            d.lastUserSeek = formatDateTime(d.lastUserSeek)
+            d.lastUserScan = formatDateTime(d.lastUserScan)
+            d.lastUserLookup = formatDateTime(d.lastUserLookup)
+            d.lastUserUpdate = formatDateTime(d.lastUserUpdate)
+        data
+
     # initialization
     #####################
     $scope.nav =

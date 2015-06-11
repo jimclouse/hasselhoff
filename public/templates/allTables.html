@@ -4,11 +4,13 @@
     <thead class="thead">
         <tr>
             <th>Table Name</th>
+            <th>Options</th>
         </tr>
     <thead>
     <tbody ><!--   -->
         <tr ng-repeat="table in infos">
             <td>{{table.tableName}}</td>
+            <td>[<a href="" ng-click="loadData('indexesPerTable', {'tableName': table.tableName}, formatIndexes)">Indexes</a>]</td>
         </tr>
     </tbody>      
 </table>
