@@ -13,6 +13,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
             $scope.partial = p
             $scope.infos = resultStack.slice(-1)[0]
         $scope.nav.page = p
+        $scope.pageData = {}
 
     $scope.navigate = (page) ->
         navStack.push(page)
@@ -61,6 +62,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
             template: template
             data: data
             processFn: processFn
+        $scope.pageData = data || {}
         fetchQuery(template, data, processFn)
 
     # use the stored pageCache info to re-run the current query
@@ -109,7 +111,6 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
         data
 
     $scope.formatIndexes = (data) ->
-        debugger
         _.each data, (d) ->
             d.lastUserSeek = formatDateTime(d.lastUserSeek)
             d.lastUserScan = formatDateTime(d.lastUserScan)
