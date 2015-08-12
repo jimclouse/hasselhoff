@@ -1,0 +1,41 @@
+
+<div ng-controller="dictionary" class="container hoffcontainer">
+    <div class="pull-right"><a class="btn btn-default partial-back-button" role="button" href="javascript:history.go(-1)">« Back</a></div>
+
+    <div ng-show="dictionary.tables">
+        <h3>All Tables - {{selectedDatabase.name}}</h3>
+        <table width="100%" class="table table-condensed table-striped hofftable">
+            <thead class="thead">
+                <tr>
+                    <th>Table Name</th>
+                    <th>Description</th>
+                </tr>
+            <thead>
+            <tbody >
+                <tr ng-repeat="table in dictionary.tables">
+                    <td><a href="/#/dictionary/{{selectedDatabase.name}}/{{table.objectId}}">{{table.tableName}}</a></td>
+                    <td>{{table.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-show="1==1">
+        <h3>{{dictionary.table.tableName}}</h3>
+        <strong>{{dictionary.table.description}}</strong>
+        <table width="100%" class="table table-condensed table-striped hofftable">
+            <thead class="thead">
+                <tr>
+                    <th>Column</th>
+                    <th>Description</th>
+                </tr>
+            <thead>
+            <tbody >
+                <tr ng-repeat="column in dictionary.columns">
+                    <td>{{column.columnName}}</td>
+                    <td>{{column.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

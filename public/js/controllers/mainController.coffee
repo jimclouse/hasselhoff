@@ -1,5 +1,5 @@
 
-app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
+app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routeParams) ->
 
     $scope.navigateBack = () ->
         navStack.pop()
@@ -9,7 +9,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
             $scope.partial = null
             $scope.infos = null
             $scope.pageCahce = null
-        else 
+        else
             $scope.partial = p
             $scope.infos = resultStack.slice(-1)[0]
         $scope.nav.page = p
@@ -28,6 +28,8 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
 
     $scope.changeDatabase = () ->
         refresh() if $scope.partial
+        $rootScope.selectedDatabase = $scope.selectedDatabase
+        $rootScope.$broadcast('changeDatabase', $scope.selectedDatabase)
 
     formatDateFromNow = $scope.formatDateFromNow = (datetime) ->
         return unless datetime
@@ -48,7 +50,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
                 console.error err
 
     fetchQuery = (template, data, processFn) ->
-        data.database = $scope.selectedDatabase.name
+        data.database = $rootScope.selectedDatabase.name
         query(template, data).then (data) ->
             $scope.partial = template
             $scope.infos = processFn(data[0])
@@ -84,13 +86,13 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
         blocked = []
         blockers = []
         clear = []
-        
+
         _.each data, (d) ->
             d.dateFromNow = formatDateFromNow(d.lastBatch) # hack this in here
-            if d.blocked != 0 
+            if d.blocked != 0
                 blockers.push(d.blocked)
                 blocked.push(d.spid)
-            else 
+            else
                 clear.push(d.spid)
 
         heads = _.intersection(clear, blockers)
@@ -126,13 +128,16 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql) ->
     navStack = ['main']
     resultStack = []
 
-    query('allDatabases').then (data) -> 
-        $scope.databases = data[0]
-        $scope.selectedDatabase = _.first _.filter data[0], (d) -> d.name == 'master'
+    query('allDatabases').then (data) ->
+        $rootScope.databases = data[0]
+        seed = 'master'
+        seed = $routeParams.database if $routeParams.database
+        $rootScope.selectedDatabase = _.first _.filter data[0], (d) -> d.name == seed
+        $rootScope.$broadcast('initializedDatabase', 'm')
 
     query('serverStats').then (data) ->
-        $scope.server = 
+        $scope.server =
             name: data[0][0].SERVERNAME
             version: data[1][0].VERSION
             lastRestart: moment((data[2][0].sqlserver_start_time)?.replace('Z', '')).format('YYYY/M/D HH:m:s')
-            
+
