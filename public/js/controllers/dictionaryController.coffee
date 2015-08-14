@@ -24,6 +24,17 @@ app.controller 'dictionary', ($rootScope, $scope, $http, $routeParams, $location
         fetchTables()
     )
 
+    $scope.edit = (obj) ->
+        obj.isEditing = true
+
+    $scope.save = (obj) ->
+        obj.database = $routeParams.database
+        $http.post('query', {template: "updateExtendedProperties", data: obj})
+            .then (res) ->
+                obj.isEditing = false
+            .catch (err) ->
+                console.error err
+
     init = () ->
         if $routeParams.tableId
             # get info on one table only

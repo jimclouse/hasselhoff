@@ -14,7 +14,7 @@
             <tbody >
                 <tr ng-repeat="table in dictionary.tables">
                     <td><a href="/#/dictionary/{{selectedDatabase.name}}/{{table.objectId}}">{{table.tableName}}</a></td>
-                    <td>{{table.description}}</td>
+                    <td><span ng-hide="table.description"><em>none provided</em></span>{{table.description}}</td>
                 </tr>
             </tbody>
         </table>
@@ -22,7 +22,9 @@
 
     <div ng-show="1==1">
         <h3>{{dictionary.table.tableName}}</h3>
-        <strong>{{dictionary.table.description}}</strong>
+        <strong>
+            {{dictionary.table.description}} <a href=""><i class="fa fa-pencil" ng-click="edit(column)"></i></a>
+        </strong>
         <table width="100%" class="table table-condensed table-striped hofftable">
             <thead class="thead">
                 <tr>
@@ -33,7 +35,16 @@
             <tbody >
                 <tr ng-repeat="column in dictionary.columns">
                     <td>{{column.columnName}}</td>
-                    <td>{{column.description}}</td>
+                    <td>
+                        <span ng-hide="column.isEditing">
+                            <span ng-hide="column.description"><em>none provided</em></span>
+                            {{column.description}} <a href=""><i class="fa fa-pencil" ng-click="edit(column)"></i></a>
+                        </span>
+                        <span ng-show="column.isEditing">
+                            <textarea class="form-control" rows="3" ng-model="column.description"></textarea>
+                            <button ng-click="save(column)">Save</button>
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </table>
