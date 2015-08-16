@@ -20,11 +20,18 @@
         </table>
     </div>
 
-    <div ng-show="1==1">
+    <div ng-show="dictionary.columns">
         <h3>{{dictionary.table.tableName}}</h3>
-        <strong>
-            {{dictionary.table.description}} <a href=""><i class="fa fa-pencil" ng-click="edit(column)"></i></a>
-        </strong>
+        <span ng-hide="dictionary.table.isEditing">
+            <strong>
+                {{dictionary.table.description}} <a href=""><i class="fa fa-pencil" ng-click="edit(dictionary.table)"></i></a>
+            </strong>
+        </span>
+        <span ng-show="dictionary.table.isEditing">
+            <textarea class="form-control" rows="3" ng-model="dictionary.table.description"></textarea>
+            <button ng-click="save(dictionary.table)">Save</button>
+        </span>
+
         <table width="100%" class="table table-condensed table-striped hofftable">
             <thead class="thead">
                 <tr>
