@@ -1,5 +1,5 @@
 
-app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routeParams) ->
+app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routeParams, $location) ->
 
     $scope.navigateBack = () ->
         navStack.pop()
@@ -25,6 +25,8 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
         $scope.nav.page = 'main'
         $scope.partial = null
         $scope.pageCahce = null
+        $location.path("/")
+
 
     $scope.changeDatabase = () ->
         refresh() if $scope.partial
