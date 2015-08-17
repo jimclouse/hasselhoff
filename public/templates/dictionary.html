@@ -13,7 +13,7 @@
             <thead>
             <tbody >
                 <tr ng-repeat="table in dictionary.tables">
-                    <td><a href="/#/dictionary/{{selectedDatabase.name}}/{{table.objectId}}">{{table.tableName}}</a></td>
+                    <td><a href="#/dictionary/{{selectedDatabase.name}}/{{table.objectId}}">{{table.tableName}}</a></td>
                     <td><span ng-hide="table.description"><em>none provided</em></span>{{table.description}}</td>
                 </tr>
             </tbody>
