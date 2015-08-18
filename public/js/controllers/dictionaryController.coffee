@@ -24,6 +24,9 @@ app.controller 'dictionary', ($rootScope, $scope, $http, $routeParams, $location
         fetchTables()
     )
 
+    $scope.formatLineBreak = (text) ->
+        text.replace(/\n/g, "<br />")
+
     $scope.edit = (obj) ->
         obj.isEditing = true
 
