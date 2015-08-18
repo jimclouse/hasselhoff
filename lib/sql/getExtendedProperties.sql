@@ -5,7 +5,7 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 select 	o.object_id as objectId
 		,s.name as schemaName
 		,o.name as tableName
-		,cast(e.value as varchar(max)) as description
+		,cast(e.value as nvarchar(max)) as description
 from	sys.objects o
 	join        sys.schemas s
         on          o.schema_id = s.schema_id
@@ -23,7 +23,7 @@ select 	o.object_id as objectId
 		,s.name as schemaName
 		,o.name as tableName
 		,c.name as columnName
-		,cast(e.value as varchar(max)) as description
+		,cast(e.value as nvarchar(max)) as description
 from	sys.objects o
 	join        sys.schemas s
         on          o.schema_id = s.schema_id
