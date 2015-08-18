@@ -14,7 +14,7 @@
             <tbody >
                 <tr ng-repeat="table in dictionary.tables">
                     <td><a href="#/dictionary/{{selectedDatabase.name}}/{{table.objectId}}">{{table.tableName}}</a></td>
-                    <td><span ng-hide="table.description"><em>none provided</em></span>{{table.description}}</td>
+                    <td><span ng-hide="table.description"><em>none provided</em></span> <span ng-bind-html="formatLineBreak(table.description)"></span></td>
                 </tr>
             </tbody>
         </table>
@@ -45,7 +45,7 @@
                     <td>
                         <span ng-hide="column.isEditing">
                             <span ng-hide="column.description"><em>none provided</em></span>
-                            {{column.description}} <a href=""><i class="fa fa-pencil" ng-click="edit(column)"></i></a>
+                            <span ng-bind-html="formatLineBreak(column.description)"></span> <a href=""><i class="fa fa-pencil" ng-click="edit(column)"></i></a>
                         </span>
                         <span ng-show="column.isEditing">
                             <textarea class="form-control" rows="3" ng-model="column.description"></textarea>
