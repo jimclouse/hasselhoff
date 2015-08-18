@@ -25,14 +25,16 @@ app.controller 'dictionary', ($rootScope, $scope, $http, $routeParams, $location
     )
 
     $scope.formatLineBreak = (text) ->
-        text.replace(/\n/g, "<br />")
+        text.replace(/\n/g, "<br />") if text
 
     $scope.edit = (obj) ->
         obj.isEditing = true
 
     $scope.save = (obj) ->
-        obj.database = $routeParams.database
-        $http.post('query', {template: "updateExtendedProperties", data: obj})
+        body = _.cloneDeep(obj)
+        body.database = $routeParams.database
+        body.description = body.description.replace(/'/g, "''") if body.description
+        $http.post('query', {template: "updateExtendedProperties", data: body})
             .then (res) ->
                 obj.isEditing = false
             .catch (err) ->
