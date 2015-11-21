@@ -6,13 +6,14 @@ fs          = require 'fs'
 path        = require 'path'
 mustache    = require 'mustache'
 
-config =
-    user: process.env.USER_NAME
-    password: process.env.PASSWORD
-    server: process.env.SERVER
-    requestTimeout: 60000
-    # we dont choose a db, but let the templates dictacte db
+# set up configuration for different servers
+CONFIGS = {}
+servers = (process.env.CONNECTIONS).split(',') || []
 
+_.each servers, (s) ->
+    config = JSON.parse(process.env[s] || '')
+    CONFIGS[config.name] = config.config
+    CONFIGS[config.name].requestTimeout = 60000
 
 root = process.cwd()
 
@@ -24,6 +25,7 @@ query = (req, res) ->
     if !TEMPLATES[template]
         TEMPLATES[template] = fs.readFileSync(path.join(root, 'lib/sql', "#{template}.sql"), {encoding: 'utf8'})
     template = mustache.render(TEMPLATES[template], req.body.data)
+    config = CONFIGS[req.body.data.server]
 
     connection = new mssql.Connection(config, (err) ->
         res.send 500, err if err

@@ -27,11 +27,26 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
         $scope.pageCahce = null
         $location.path("/")
 
+    getDatabaseList = () ->
+        $rootScope.databases = [] # clear out the existing
+        query('allDatabases').then (data) ->
+            $rootScope.databases = data[0]
+            seed = 'master'
+            seed = $routeParams.database if $routeParams.database
+            $rootScope.selectedDatabase = _.first _.filter data[0], (d) -> d.name == seed
+            $rootScope.$broadcast('initializedDatabase', 'm')
 
-    $scope.changeDatabase = () ->
+    $scope.changeDatabase = changeDatabase = () ->
         refresh() if $scope.partial
         $rootScope.selectedDatabase = $scope.selectedDatabase
         $rootScope.$broadcast('changeDatabase', $scope.selectedDatabase)
+
+    $scope.changeServer = () ->
+        refresh() if $scope.partial
+        $rootScope.selectedServer = $scope.selectedServer
+        getDatabaseList()
+
+        #$rootScope.$broadcast('changeDatabase', $scope.selectedDatabase)
 
     formatDateFromNow = $scope.formatDateFromNow = (datetime) ->
         return unless datetime
@@ -44,7 +59,8 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
     $scope.formatSql = (tsql) ->
         formatSql.format(tsql)
 
-    query = (template, data) ->
+    query = (template, data={}) ->
+        data.server = $rootScope.selectedServer
         $http.post('query', {template: template, data: data})
             .then (res) ->
                 return res.data
@@ -130,12 +146,12 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
     navStack = ['main']
     resultStack = []
 
-    query('allDatabases').then (data) ->
-        $rootScope.databases = data[0]
-        seed = 'master'
-        seed = $routeParams.database if $routeParams.database
-        $rootScope.selectedDatabase = _.first _.filter data[0], (d) -> d.name == seed
-        $rootScope.$broadcast('initializedDatabase', 'm')
+    # list of available servers, should match with the env configs
+    # really should just pull this list from the env configs #lazy
+    $rootScope.configuredServers = ['GLGDB150', 'TXSQL06']
+    $rootScope.selectedServer = $scope.configuredServers[0]
+
+    getDatabaseList()
 
     query('serverStats').then (data) ->
         $scope.server =

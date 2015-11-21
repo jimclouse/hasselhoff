@@ -4,7 +4,7 @@ bodyParser  = require "body-parser"
 http        = require "http"
 mssql       = require "../lib/mssql"
 
-app = express() 
+app = express()
 app.set('root', process.cwd())
 
 #get the port situated based on environment

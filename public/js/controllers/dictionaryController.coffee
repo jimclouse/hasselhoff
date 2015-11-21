@@ -3,15 +3,20 @@ app.controller 'dictionary', ($rootScope, $scope, $http, $routeParams, $location
 
     $scope.dictionary = {}
 
+    query = (template, data={}) ->
+        data.database = $rootScope.selectedDatabase.name unless data.database
+        data.server = $rootScope.selectedServer
+        $http.post('query', {template: template, data: data})
+
     fetchTables = () ->
-        $http.post('query', {template: "allTablesDictionary", data: {database: $rootScope.selectedDatabase.name}})
+        query("allTablesDictionary")
             .then (res) ->
                 $scope.dictionary.tables = res.data[0]
             .catch (err) ->
                 console.error err
 
     fetchColumns = () ->
-        $http.post('query', {template: "getExtendedProperties", data: {database: $routeParams.database, objectId: $routeParams.tableId}})
+        query("getExtendedProperties", {database: $routeParams.database, objectId: $routeParams.tableId})
             .then (res) ->
                 $scope.dictionary.table = res.data[0][0]
                 $scope.dictionary.columns = res.data[1]
@@ -34,7 +39,7 @@ app.controller 'dictionary', ($rootScope, $scope, $http, $routeParams, $location
         body = _.cloneDeep(obj)
         body.database = $routeParams.database
         body.description = body.description.replace(/'/g, "''") if body.description
-        $http.post('query', {template: "updateExtendedProperties", data: body})
+        query("updateExtendedProperties", body)
             .then (res) ->
                 obj.isEditing = false
             .catch (err) ->
