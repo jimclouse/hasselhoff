@@ -1,7 +1,7 @@
 USE {{database}};
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 
-# login must have ALTER permissions on all the tables for this script to work
+-- login must have ALTER permissions on all the tables for this script to work
 
 IF EXISTS (select 1 from sys.extended_properties where major_id = {{objectId}} {{#columnId}} and minor_id = {{columnId}} {{/columnId}})
 BEGIN
