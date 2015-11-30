@@ -148,7 +148,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
 
     # list of available servers, should match with the env configs
     # really should just pull this list from the env configs #lazy
-    $rootScope.configuredServers = ['GLGDB150', 'TXSQL06']
+    $rootScope.configuredServers = ['GLGDB150', 'TXSQL06', 'DATAHUB']
     $rootScope.selectedServer = $scope.configuredServers[0]
 
     getDatabaseList()
