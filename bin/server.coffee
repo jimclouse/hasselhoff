@@ -16,6 +16,9 @@ app.use(bodyParser({ limit: '2mb' }))
 
 app.engine('html', require('ejs').renderFile)
 
+app.locals =
+  availableServers: process.env['CONNECTIONS']
+
 #app.options '*', (req,res) -> res.send(200)
 
 app.get '/', (req, res) -> res.render 'app.html'
