@@ -146,9 +146,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
     navStack = ['main']
     resultStack = []
 
-    # list of available servers, should match with the env configs
-    # really should just pull this list from the env configs #lazy
-    $rootScope.configuredServers = ['GLGDB150', 'TXSQL06', 'DATAHUB']
+    $rootScope.configuredServers = config.availableServers.split(",")
     $rootScope.selectedServer = $scope.configuredServers[0]
 
     getDatabaseList()
