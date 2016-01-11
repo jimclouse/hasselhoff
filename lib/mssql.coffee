@@ -31,11 +31,15 @@ query = (req, res) ->
         return res.send 500, "Connection for #{req.body.data.server} not found."
 
     connection = new mssql.Connection(config, (err) ->
-        res.send 500, err if err
+        if err
+            res.send 500, "mssql error #{err}"
+            return console.error "mssql error #{err}"
         rq = new mssql.Request(connection) # or: var request = connection.request();
         rq.multiple = true;
         rq.query(template, (err, recordset) ->
-            res.send 500, err if err
+            if err
+                res.send 500, "mssql error #{err}"
+                return console.error "mssql error #{err}"
             res.send recordset
         )
     )
