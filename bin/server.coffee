@@ -35,7 +35,7 @@ server = http.createServer(app)
 
 server.listen _port, ->
     console.log "running on port #{_port}"
-    console.log "App settings:", app.locals.settings
+    console.log "App settings:", app.locals
 
 
 module.exports = app
