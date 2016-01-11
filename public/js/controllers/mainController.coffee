@@ -37,13 +37,15 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
             $rootScope.$broadcast('initializedDatabase', 'm')
 
     $scope.changeDatabase = changeDatabase = () ->
-        refresh() if $scope.partial
+        $scope.pageCache?.data?.database = $scope.selectedDatabase.name
         $rootScope.selectedDatabase = $scope.selectedDatabase
+        refresh() if $scope.partial
         $rootScope.$broadcast('changeDatabase', $scope.selectedDatabase)
 
     $scope.changeServer = () ->
-        refresh() if $scope.partial
         $rootScope.selectedServer = $scope.selectedServer
+        $scope.pageCache?.data?.server = $scope.selectedServer
+        refresh() if $scope.partial
         getDatabaseList()
 
         #$rootScope.$broadcast('changeDatabase', $scope.selectedDatabase)
