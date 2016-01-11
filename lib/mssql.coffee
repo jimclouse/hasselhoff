@@ -27,6 +27,9 @@ query = (req, res) ->
     template = mustache.render(TEMPLATES[template], req.body.data)
     config = CONFIGS[req.body.data.server]
 
+    if !config
+        return res.send 500, "Connection for #{req.body.data.server} not found."
+
     connection = new mssql.Connection(config, (err) ->
         res.send 500, err if err
         rq = new mssql.Request(connection) # or: var request = connection.request();
