@@ -40,7 +40,9 @@ query = (req, res) ->
             if err
                 res.send 500, "mssql error #{err}"
                 return console.error "mssql error #{err}"
+                connection.close()
             res.send recordset
+            connection.close()
         )
     )
 
