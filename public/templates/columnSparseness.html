@@ -1,0 +1,26 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>{{pageData.tableName}} Column Sparse-ness</h3>
+
+<table class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Row Count</th>
+            <th>Nulls</th>
+            <th>Non-Nulls</th>
+            <th>% Empty</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="index in infos" >
+            <td><strong>{{index.columnName}}</strong></td>
+            <td>{{index.columnType}}</td>
+            <td>{{numberFormat(index.totalRows)}}</td>
+            <td>{{numberFormat(index.nulls)}}</td>
+            <td>{{numberFormat(index.nonNulls)}}</td>
+            <td>{{round(index.pctEmpty, 2)}}</td>
+        </tr>
+    </tbody>
+</table>

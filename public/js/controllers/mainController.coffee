@@ -65,6 +65,14 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
         return unless datetime
         moment(datetime.replace('Z', '')).format('YYYY-MM-DD HH:mm:ss')
 
+    $scope.round = (value, places) ->
+        return value if !value
+        value.toFixed(places)
+
+    $scope.numberFormat = (value) ->
+        return value if !value
+        value.toLocaleString()
+
     $scope.formatSql = (tsql) ->
         formatSql.format(tsql)
 

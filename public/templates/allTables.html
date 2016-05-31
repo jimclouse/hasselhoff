@@ -1,6 +1,6 @@
 <ng-include src="'templates/partials/topBackButton.html'"></ng-include>
 <h3>All Tables - {{selectedDatabase.name}}</h3>
-<table width="100%" class="table table-condensed table-striped hofftable">
+<table class="table table-condensed table-striped hofftable width50">
     <thead class="thead">
         <tr>
             <th>Table Name</th>
@@ -9,8 +9,11 @@
     <thead>
     <tbody ><!--   -->
         <tr ng-repeat="table in infos">
-            <td>{{table.tableName}}</td>
-            <td>[<a href="" ng-click="loadData('indexesPerTable', {'tableName': table.tableName}, formatIndexes)">Indexes</a>]</td>
+            <td>{{table.fullTableName}}</td>
+            <td>
+                [<a href="" ng-click="loadData('indexesPerTable', {'tableName': table.tableName}, formatIndexes)">Indexes</a>]  &nbsp;
+                [<a href="" ng-click="loadData('columnSparseness', {'tableName': table.tableName, 'schemaName': table.schemaName}, null)">Column Sparse-ness</a>]
+            </td>
         </tr>
-    </tbody>      
+    </tbody>
 </table>
