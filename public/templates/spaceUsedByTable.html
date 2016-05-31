@@ -1,0 +1,24 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<h3>Table Space Used - {{selectedDatabase.name}}</h3>
+<table class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Table Name</th>
+            <th>Rows</th>
+            <th>Reserved (MB)</th>
+            <th>Data (MB)</th>
+            <th>Indexes (MB)</th>
+            <th>Unused (KB)</th>
+        </tr>
+    <thead>
+    <tbody ><!--   -->
+        <tr ng-repeat="table in infos">
+            <td>{{table.name}}</td>
+            <td>{{table.rows}}</td>
+            <td>{{table.reserved}}</td>
+            <td>{{table.data}}</td>
+            <td>{{table.indexes}}</td>
+            <td>{{table.unused}}</td>
+        </tr>
+    </tbody>
+</table>
