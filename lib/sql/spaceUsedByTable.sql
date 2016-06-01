@@ -2,26 +2,82 @@ USE {{database}};
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 SET NOCOUNT ON;
 
-create table #usage (name sysname, rows int, reserved varchar(64), data varchar(64), indexSize varchar(64), unused varchar(64))
 
-exec sp_msforeachtable 'insert into #usage exec sp_spaceused ''?'' '
-
-update #usage set reserved = LTRIM(RTRIM(REPLACE(reserved,'KB','')))
-update #usage set data = LTRIM(RTRIM(REPLACE(data,'KB','')))
-update #usage set indexSize = LTRIM(RTRIM(REPLACE(indexSize,'KB','')))
-update #usage set unused = LTRIM(RTRIM(REPLACE(unused,'KB','')))
-
-alter table #usage alter column reserved int
-alter table #usage alter column data int
-alter table #usage alter column indexSize int
-alter table #usage alter column unused int
-
-select  name
-    ,rows
-    ,reserved/1024.0 as reserved
-    ,data/1024.0 as data
-    ,indexSize/1024.0 as indexSize
-    ,unused as unused
-from #usage order by reserved desc;
-
-drop table #usage
+;WITH extra AS
+(   -- Get info for FullText indexes, XML Indexes, etc
+    SELECT  sit.[object_id],
+            sit.[parent_id],
+            ps.[index_id],
+            SUM(ps.reserved_page_count) AS [reserved_page_count],
+            SUM(ps.used_page_count) AS [used_page_count]
+    FROM    sys.dm_db_partition_stats ps
+    INNER JOIN  sys.internal_tables sit
+            ON  sit.[object_id] = ps.[object_id]
+    WHERE   sit.internal_type IN
+               (202, 204, 207, 211, 212, 213, 214, 215, 216, 221, 222, 236)
+    GROUP BY    sit.[object_id],
+                sit.[parent_id],
+                ps.[index_id]
+), agg AS
+(   -- Get info for Tables, Indexed Views, etc (including "extra")
+    SELECT  ps.[object_id] AS [ObjectID],
+            ps.index_id AS [IndexID],
+            SUM(ps.in_row_data_page_count) AS [InRowDataPageCount],
+            SUM(ps.used_page_count) AS [UsedPageCount],
+            SUM(ps.reserved_page_count) AS [ReservedPageCount],
+            SUM(ps.row_count) AS [RowCount],
+            SUM(ps.lob_used_page_count + ps.row_overflow_used_page_count)
+                    AS [LobAndRowOverflowUsedPageCount]
+    FROM    sys.dm_db_partition_stats ps
+    GROUP BY    ps.[object_id],
+                ps.[index_id]
+    UNION ALL
+    SELECT  ex.[parent_id] AS [ObjectID],
+            ex.[object_id] AS [IndexID],
+            0 AS [InRowDataPageCount],
+            SUM(ex.used_page_count) AS [UsedPageCount],
+            SUM(ex.reserved_page_count) AS [ReservedPageCount],
+            0 AS [RowCount],
+            0 AS [LobAndRowOverflowUsedPageCount]
+    FROM    extra ex
+    GROUP BY    ex.[parent_id],
+                ex.[object_id]
+), spaceused AS
+(
+SELECT  agg.[ObjectID],
+        OBJECT_SCHEMA_NAME(agg.[ObjectID]) AS [SchemaName],
+        OBJECT_NAME(agg.[ObjectID]) AS [TableName],
+        SUM(CASE
+                WHEN (agg.IndexID < 2) THEN agg.[RowCount]
+                ELSE 0
+            END) AS [Rows],
+        SUM(agg.ReservedPageCount) * 8 AS [ReservedKB],
+        SUM(agg.LobAndRowOverflowUsedPageCount +
+            CASE
+                WHEN (agg.IndexID < 2) THEN (agg.InRowDataPageCount)
+                ELSE 0
+            END) * 8 AS [DataKB],
+        SUM(agg.UsedPageCount - agg.LobAndRowOverflowUsedPageCount -
+            CASE
+                WHEN (agg.IndexID < 2) THEN agg.InRowDataPageCount
+                ELSE 0
+            END) * 8 AS [IndexKB],
+        SUM(agg.ReservedPageCount - agg.UsedPageCount) * 8 AS [UnusedKB],
+        SUM(agg.UsedPageCount) * 8 AS [UsedKB]
+FROM    agg
+GROUP BY    agg.[ObjectID],
+            OBJECT_SCHEMA_NAME(agg.[ObjectID]),
+            OBJECT_NAME(agg.[ObjectID])
+)
+SELECT sp.SchemaName + '.' + sp.TableName as name
+       ,sp.[Rows] as rows
+       ,sp.ReservedKB/1024. AS reserved
+       ,sp.DataKB/1024. AS data
+       ,sp.IndexKB/1024. as indexSize
+       ,sp.UnusedKB AS unused
+       ,so.[type_desc] AS [ObjectType]
+FROM   spaceused sp
+INNER JOIN sys.objects so
+        ON so.[object_id] = sp.ObjectID
+WHERE so.is_ms_shipped = 0
+ORDER BY sp.ReservedKB DESC
