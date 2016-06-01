@@ -21,7 +21,7 @@ app.controller 'main', ($rootScope, $scope, $http, $timeout, formatSql, $routePa
         navStack[navStack.length - 1].infos = infos
 
     $scope.getNavDataAttr = (attr) ->
-        navStack[navStack.length - 1]?.[attr]
+        navStack[navStack.length - 1][attr]
 
     # use the stored pageCache info to re-run the current query
     refresh = $scope.refresh = () ->
