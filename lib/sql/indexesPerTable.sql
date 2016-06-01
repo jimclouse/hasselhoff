@@ -14,7 +14,7 @@ SELECT  I.name as indexName
         ,S.system_seeks as systemSeeks
         ,S.system_scans as systemScans
         ,S.system_lookups as systemLookups
-        ,S.system_seeks + s.system_scans + s.system_lookups + S.user_seeks + S.user_scans + S.user_lookups as totalUsage 
+        ,S.system_seeks + s.system_scans + s.system_lookups + S.user_seeks + S.user_scans + S.user_lookups as totalUsage
         ,8 * SUM(a.used_pages) AS indexSizeKb
         ,SUM(a.used_pages) AS pages
         ,COALESCE((SELECT STUFF(
@@ -49,13 +49,13 @@ FROM   sys.indexes i
         ON      s.[object_id] = i.[object_id]
             AND     s.index_id = i.index_id
             AND     s.database_id = DB_ID()
-    LEFT JOIN sys.partitions AS p 
+    LEFT JOIN sys.partitions AS p
         ON      p.OBJECT_ID = i.OBJECT_ID
             AND     p.index_id = i.index_id
-    LEFT JOIN sys.allocation_units AS a 
+    LEFT JOIN sys.allocation_units AS a
         ON      a.container_id = p.partition_id
 WHERE  OBJECTPROPERTY(O.[object_id], 'IsMsShipped') = 0
-    AND     O.object_id = object_id('{{tableName}}')
+    AND     O.object_id = object_id('{{schemaName}}.{{tableName}}')
 
 GROUP BY i.object_id, I.name, i.index_id, S.user_seeks, S.user_scans ,S.user_lookups ,S.user_updates ,S.last_user_seek ,S.last_user_scan ,S.last_user_lookup ,S.last_user_update ,S.system_seeks ,S.system_scans ,S.system_lookups
 ORDER BY    I.name;

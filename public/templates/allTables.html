@@ -11,7 +11,7 @@
         <tr ng-repeat="table in infos">
             <td>{{table.fullTableName}}</td>
             <td>
-                [<a href="" ng-click="loadData('indexesPerTable', {'tableName': table.tableName}, formatIndexes)">Indexes</a>]  &nbsp;
+                [<a href="" ng-click="loadData('indexesPerTable', {'tableName': table.tableName, 'schemaName': table.schemaName}, formatIndexes)">Indexes</a>]  &nbsp;
                 [<a href="" ng-click="loadData('columnSparseness', {'tableName': table.tableName, 'schemaName': table.schemaName}, null)">Column Sparse-ness</a>]
             </td>
         </tr>

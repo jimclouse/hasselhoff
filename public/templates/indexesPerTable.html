@@ -1,6 +1,6 @@
 <ng-include src="'templates/partials/topBackButton.html'"></ng-include>
 <ng-include src="'templates/partials/refreshButton.html'"></ng-include>
-<h3>{{pageData.tableName}} Indexes</h3>
+<h3>{{getNavDataAttr('tableName')}} Indexes</h3>
 <p>{{infos.length}} Indexes</p>
 
 <table width="100%" class="table table-condensed table-striped hofftable">
@@ -44,5 +44,5 @@
             <td>{{index.indexSizeKb}}</td>
             <td>{{index.pages}}</td>
         </tr>
-    </tbody>      
+    </tbody>
 </table>
