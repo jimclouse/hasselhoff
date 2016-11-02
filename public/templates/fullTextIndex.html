@@ -1,0 +1,30 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>Full Text Index Meta Information</h3>
+
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Indexed Table</th>
+            <th>Index Size (Mb)</th>
+            <th>Full Text Catalog</th>
+            <th>Is Default Catalog?</th>
+            <th>Catalog Size (Mb)</th>
+            <th>Catalog Unique Key Count</th>
+            <th>Last Population Date</th>
+            <th>Population Status</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="sproc in ::infos">
+            <td>{{sproc.tableName}}</td>
+            <td>{{sproc.indexSizeMb}}</td>
+            <td>{{sproc.catalogName}}</td>
+            <td>{{sproc.isDefaultCatalog}}</td>
+            <td>{{sproc.catalogSizeMb}}</td>
+            <td>{{sproc.uniqueKeyCount}}</td>
+            <td>{{sproc.lastPopulatedDate}}</td>
+            <td>{{sproc.populationStatus}}</td>
+        </tr>
+    </tbody>      
+</table>
