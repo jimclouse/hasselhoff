@@ -12,7 +12,7 @@
     <thead>
     <tbody >
         <tr ng-repeat="obj in ::infos"
-            ng-class="!sproc.lastExecutionTime ? 'danger' : '' ">
+            ng-class="!obj.lastExecutionTime ? 'danger' : '' ">
             <td>{{obj.objectType}}</td>
             <td>{{obj.objectName}}</td>
             <td>{{obj.lastExecutionTime}}</td>
