@@ -1,0 +1,21 @@
+<ng-include src="'templates/partials/topBackButton.html'"></ng-include>
+<ng-include src="'templates/partials/refreshButton.html'"></ng-include>
+<h3>Stored Procedure Usage</h3>
+
+<table width="100%" class="table table-condensed table-striped hofftable">
+    <thead class="thead">
+        <tr>
+            <th>Type</th>
+            <th>Object</th>
+            <th>Last Known Usage Time</th>
+        </tr>
+    <thead>
+    <tbody >
+        <tr ng-repeat="obj in ::infos"
+            ng-class="!sproc.lastExecutionTime ? 'danger' : '' ">
+            <td>{{obj.objectType}}</td>
+            <td>{{obj.objectName}}</td>
+            <td>{{obj.lastExecutionTime}}</td>
+        </tr>
+    </tbody>      
+</table>
