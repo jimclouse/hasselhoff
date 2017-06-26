@@ -22,7 +22,7 @@ app.use(express.static(app.get("root") + '/public'))
 app.use(bodyParser({ limit: '2mb' }))
 
 app.use(  (req, res, next) ->
-    res.setHeader('Access-Control-Allow-Origin', 'http://jobs.glgresearch.com')
+    res.setHeader('Access-Control-Allow-Origin', 'https://jobs.glgresearch.com/')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
     res.setHeader('Access-Control-Allow-Credentials', true)
