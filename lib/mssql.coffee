@@ -21,6 +21,7 @@ root = process.cwd()
 TEMPLATES = {}
 
 query = (req, res) ->
+    console.log "mssql query being hit...."
     template = req.body.template
     if !TEMPLATES[template]
         TEMPLATES[template] = fs.readFileSync(path.join(root, 'lib/sql', "#{template}.sql"), {encoding: 'utf8'})
