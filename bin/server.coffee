@@ -12,14 +12,22 @@ app.set('root', process.cwd())
 _port = 9000;
 
 app.use '/static', express.static(path.join(app.get('root'), 'static'))
-app.use cors(
-  origin: [
-    'http://localhost:9090'
-    'https://jobs.glgresearch.com/'
-  ]
-  credentials: true)
+# app.use cors(
+#   origin: [
+#     'http://localhost:9090'
+#     'https://jobs.glgresearch.com/'
+#   ]
+#   credentials: true)
 app.use(express.static(app.get("root") + '/public'))
 app.use(bodyParser({ limit: '2mb' }))
+
+app.use(  (req, res, next) ->
+    res.setHeader('Access-Control-Allow-Origin', 'http://jobs.glgresearch.com')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    next()
+)
 
 app.engine('html', require('ejs').renderFile)
 
