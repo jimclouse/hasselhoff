@@ -3,6 +3,7 @@ path        = require "path"
 bodyParser  = require "body-parser"
 http        = require "http"
 mssql       = require "../lib/mssql"
+cors        = require "cors"
 
 app = express()
 app.set('root', process.cwd())
@@ -11,6 +12,12 @@ app.set('root', process.cwd())
 _port = 9000;
 
 app.use '/static', express.static(path.join(app.get('root'), 'static'))
+app.use cors(
+  origin: [
+    'http://localhost:9090'
+    'https://jobs.glgresearch.com/'
+  ]
+  credentials: true)
 app.use(express.static(app.get("root") + '/public'))
 app.use(bodyParser({ limit: '2mb' }))
 
