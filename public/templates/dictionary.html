@@ -3,7 +3,11 @@
     <div class="pull-right"><a class="btn btn-default partial-back-button" role="button" href="javascript:history.go(-1)">« Back</a></div>
 
     <div ng-show="dictionary.tables">
-        <h3>All Tables - {{selectedDatabase.name}}</h3>
+        <div class="inline-children">
+            <h3>All Tables - {{selectedDatabase.name}}</h3>
+            <span>filter:</span>
+            <input type="text" id="filterByNameInput" />
+        </div>
         <table width="100%" class="table table-condensed table-striped hofftable">
             <thead class="thead">
                 <tr>
@@ -12,7 +16,7 @@
                 </tr>
             <thead>
             <tbody >
-                <tr ng-repeat="table in dictionary.tables">
+                <tr ng-repeat="table in dictionary.tablesFiltered track by table.objectId">
                     <td><a href="#/dictionary/{{selectedDatabase.name}}/{{table.objectId}}">{{table.tableName}}</a></td>
                     <td><span ng-hide="table.description"><em>none provided</em></span> <span ng-bind-html="formatLineBreak(table.description)"></span></td>
                 </tr>

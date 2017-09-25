@@ -84,3 +84,14 @@ hr {
 .width50 {
     width: 50%;
 }
+
+.inline-children {
+    white-space: nowrap;
+    & > * {
+        display: inline-block;
+        white-space: normal;
+    }
+    & > *:not(:last-child) {
+        margin-right: 10px;
+    }
+}
