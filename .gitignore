@@ -1,3 +1,4 @@
 npm-debug.log
 etc/*
 static/**/*
+node_modules
