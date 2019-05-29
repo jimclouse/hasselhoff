@@ -28,7 +28,7 @@ from
     left join sys.allocation_units as allocation_units on allocation_units.container_id = partitions.partition_id
 where
     partitions.OBJECT_ID = O.object_id
-    and partitions.index_id = S.index_id
+    and partitions.index_id = I.index_id
 ) as spaceUsage
 WHERE   OBJECTPROPERTY(O.object_id,'IsMsShipped') = 0
     AND     I.name IS NOT NULL
