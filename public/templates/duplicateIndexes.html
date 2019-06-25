@@ -9,6 +9,8 @@ These indexes have identical keys. Before deleting any index, check for index op
             <th>Table</th>
             <th>Index</th>
             <th>Duplicate Index</th>
+            <th>Index Size MB</th>
+            <th>Duplicate Index Size MB</th>
         </tr>
     <thead>
     <tbody >
@@ -16,6 +18,8 @@ These indexes have identical keys. Before deleting any index, check for index op
             <td>{{index.schemaName}}.{{index.tableName}}</td>
             <td>{{index.indexName}}</td>
             <td>{{index.duplicateIndexName}}</td>
+            <td>{{index.indexSizeMb}}</td>
+            <td>{{index.duplicateIndexSizeMb}}</td>
         </tr>
     </tbody>      
 </table>
