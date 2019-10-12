@@ -20,4 +20,3 @@ export CONN1="{\"name\":\"CONN1\",\"config\":{\"server\":\"server\",\"port\":\"p
 export CONN2="{\"name\":\"CONN2\",\"config\":{\"server\":\"server\",\"port\":\"port\",\"user\":\"user\",\"password\":\"password\"}}"
 ```
 
-## Todo
