@@ -19,3 +19,5 @@ export CONNECTIONS="CONN1,CONN2"
 export CONN1="{\"name\":\"CONN1\",\"config\":{\"server\":\"server\",\"port\":\"port\",\"user\":\"user\",\"password\":\"password\"}}"
 export CONN2="{\"name\":\"CONN2\",\"config\":{\"server\":\"server\",\"port\":\"port\",\"user\":\"user\",\"password\":\"password\"}}"
 ```
+
+## Todo
