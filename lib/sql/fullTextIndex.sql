@@ -11,10 +11,13 @@ select  OBJECT_SCHEMA_NAME(i.object_id) + '.' + OBJECT_NAME(i.object_id) as tabl
         ,c.name as catalogName
         ,c.is_default as isDefaultCatalog
         ,p.*
+		, fg.name as filegroupName
 from    sys.fulltext_indexes i
     join    sys.fulltext_catalogs c
         on      i.fulltext_catalog_id = c.fulltext_catalog_id
-    join    cte_sizes s 
+	join	sys.filegroups fg
+		on		i.data_space_id = fg.data_space_id
+    join    cte_sizes s
         on      i.object_id = s.table_id
     cross apply (
         select  DATEADD(ss, FULLTEXTCATALOGPROPERTY(fc.name,'PopulateCompletionAge'), '1/1/1990') AS lastPopulatedDate
@@ -34,6 +37,4 @@ from    sys.fulltext_indexes i
         from    sys.fulltext_catalogs fc
         where   fc.fulltext_catalog_id = c.fulltext_catalog_id
     ) as p
-order by c.name, s.indexSizeMb desc
-        
-        
+order by c.name, s.indexSizeMb desc;
